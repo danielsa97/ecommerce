@@ -1,0 +1,13 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
+// Variables
+@import 'variables';
+
+//Styles
+@import '~overlayscrollbars/css/OverlayScrollbars.min.css';
+@import '~bootstrap/scss/bootstrap';
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+@import '~bootstrap-vue/src/index.scss';
+@import "~izitoast/dist/css/iziToast.css";
+@import "custom";
