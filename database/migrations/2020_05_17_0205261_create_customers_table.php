@@ -18,9 +18,8 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('document', 14);
             $table->date('date_of_birth');
-            $table->unsignedBigInteger('gender_id');
+            $table->enum('gender', ['M', 'F', 'O']);
             $table->unsignedBigInteger('status_id');
-            $table->foreign('gender_id')->references('id')->on('status');
             $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
         });

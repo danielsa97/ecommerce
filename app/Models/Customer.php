@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    public function gender()
-    {
-        return $this->belongsTo(Status::class,'gender_id', 'id')->where('type', 'gender');
-    }
 
     public function status()
     {

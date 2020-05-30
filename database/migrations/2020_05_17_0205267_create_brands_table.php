@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkusHasOrdersTable extends Migration
+class CreateBrandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateSkusHasOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::create('skus_has_orders', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateSkusHasOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skus_has_orders');
+        Schema::dropIfExists('brands');
     }
 }

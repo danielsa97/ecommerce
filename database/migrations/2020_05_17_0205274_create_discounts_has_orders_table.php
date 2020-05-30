@@ -14,8 +14,11 @@ class CreateDiscountsHasOrdersTable extends Migration
     public function up()
     {
         Schema::create('discounts_has_orders', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('discount_id');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('discount_id')->references('id')->on('discounts');
+            $table->primary('discount_id', 'order_id');
         });
     }
 

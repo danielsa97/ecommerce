@@ -15,11 +15,6 @@ class StatusSeeder extends Seeder
         //Geral
         $this->store('general', 'A', 'Ativo');
         $this->store('general', 'I', 'Inativo');
-
-        //Genero|Sexo
-        $this->store('gender', 'M', 'Masculino');
-        $this->store('gender', 'F', 'Feminino');
-        $this->store('gender', 'O', 'Outro');
     }
 
     private function store(string $type, string $value, string $description)

@@ -14,8 +14,11 @@ class CreateSkusHasAttributesTable extends Migration
     public function up()
     {
         Schema::create('skus_has_attributes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('sku_id');
+            $table->unsignedBigInteger('attribute_id');
+            $table->foreign('sku_id')->references('id')->on('skus');
+            $table->foreign('attribute_id')->references('id')->on('attributes');
+            $table->primary('sku_id', 'attribute_id');
         });
     }
 

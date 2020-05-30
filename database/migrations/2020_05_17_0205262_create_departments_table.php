@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkusTable extends Migration
+class CreateDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateSkusTable extends Migration
      */
     public function up()
     {
-        Schema::create('skus', function (Blueprint $table) {
+        Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateSkusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skus');
+        Schema::dropIfExists('departments');
     }
 }
