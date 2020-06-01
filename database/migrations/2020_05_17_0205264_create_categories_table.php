@@ -19,6 +19,8 @@ class CreateCategoriesTable extends Migration
             $table->string('description')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('department_id');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('category_id')
                 ->references('id')

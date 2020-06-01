@@ -13,7 +13,7 @@
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
         "jeroennoten/laravel-adminlte": "^3.1",
-        "laravel/framework": "^7.0",
+        "laravel/framework": "7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "lucascudo/laravel-pt-br-localization": "^1.0",

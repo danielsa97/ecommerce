@@ -20,6 +20,8 @@ class CreateDiscountsTable extends Migration
             $table->date('date_start');
             $table->date('date_finish');
             $table->integer('priority');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->enum('type', ['A', 'P'])->comment('A: Absolute, P: Percente');
             $table->timestamps();
         });

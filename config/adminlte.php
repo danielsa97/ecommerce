@@ -227,17 +227,18 @@ return [
             'icon_color' => 'white',
             'submenu' => [
                 [
+                    'text' => 'Categorias',
+                    'icon' => 'fas fa-filter'
+                ],
+                [
                     'text' => 'Produtos',
                     'icon' => 'fas fa-cart-plus'
 
                 ],
                 [
-                    'text' => 'Categorias',
-                    'icon' => 'fas fa-filter'
-                ],
-                [
                     'text' => 'Marcas',
-                    'icon' => 'fas fa-copyright'
+                    'icon' => 'fas fa-copyright',
+                    'url' => '/catalog/brand'
                 ],
                 [
                     'text' => 'Descontos',

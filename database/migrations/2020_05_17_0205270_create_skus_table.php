@@ -19,6 +19,8 @@ class CreateSkusTable extends Migration
             $table->string('sku', 100);
             $table->decimal('price', 8, 2);
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('status');
             $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });

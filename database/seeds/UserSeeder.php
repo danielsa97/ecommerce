@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\StatusService;
 use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -18,7 +19,9 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
+            'status_id' => StatusService::get('general', 'A')->id,
             'remember_token' => Str::random(10),
         ]);
+
     }
 }

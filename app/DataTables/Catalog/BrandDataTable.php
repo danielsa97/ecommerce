@@ -1,12 +1,20 @@
 <?php
 
-namespace App\DataTables\Setting;
+namespace App\DataTables\Catalog;
 
-use App\User;
+
+use App\Models\Brand;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class BrandDataTable extends DataTable
 {
+    /**
+     * Build DataTable class.
+     *
+     * @param mixed $query Results from query() method.
+     * @return DataTableAbstract
+     */
     public function dataTable($query)
     {
         return datatables($query)
@@ -16,27 +24,28 @@ class UserDataTable extends DataTable
                     <div class='dropdown'>
                       <button class='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'>Ações</button>
                       <div class='dropdown-menu'>
-                        <button class='dropdown-item' data-user_form='{$query->id}'><i class='fa fa-edit'></i> Editar </button>
-                        <button class='dropdown-item'><i class='fa fa-adjust'></i> Alterar Status </button>
+                        <a class='dropdown-item' href='{$query->id}'><i class='fa fa-edit'></i> Editar </a>
+                        <a class='dropdown-item' href='{$query->id}'><i class='fa fa-adjust'></i> Alterar Status </a>
                       </div>
                     </div>";
             })
             ->editColumn('status', 'datatable.status-label');
+
     }
 
 
-    public function query(User $user)
+    public function query(Brand $brand)
     {
-        return $user->newQuery()
-            ->join('status', 'users.status_id', 'status.id')
-            ->select('users.id', 'name', 'email', 'status.description as status');
+        return $brand->newQuery()
+            ->join('status', 'brands.status_id', 'status.id')
+            ->select('name', 'brands.description', 'status.description as status');
     }
 
     public function html()
     {
         return $this->builder()
             ->columns($this->getColumns())
-            ->ajax(['url' => route('datatable.setting.user')])
+            ->ajax(['url' => route('datatable.catalog.brand')])
             ->parameters($this->getBuilderParameters());
     }
 
@@ -52,8 +61,8 @@ class UserDataTable extends DataTable
                 'printable' => false,
                 'width' => '60px'
             ],
-            'name' => ['title' => 'Nome'],
-            'email' => ['title' => 'E-mail'],
+            'name' => ['title' => 'Nome', 'width' => '200px',],
+            'description' => ['title' => 'Descrição'],
             'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
     }
@@ -65,6 +74,6 @@ class UserDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'setting_user_' . date('YmdHis');
+        return 'catalog_brand_' . date('YmdHis');
     }
 }

@@ -18,7 +18,7 @@ class CustomerSeeder extends Seeder
             'name' => 'Daniel de Sá',
             'date_of_birth' => Carbon::now()->toDateString(),
             'document' => '02033531295',
-            'gender_id' => StatusService::get('gender', 'M')->id,
+            'gender' => 'M',
             'status_id' => StatusService::get('general', 'A')->id
         ]);
     }
