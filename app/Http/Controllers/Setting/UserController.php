@@ -7,10 +7,10 @@ namespace App\Http\Controllers\Setting;
 use App\DataTables\Setting\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Services\Setting\User\UserEdit;
-use App\Services\Setting\User\UserStore;
-use App\Services\Setting\User\UserUpdate;
-use Illuminate\Http\JsonResponse;
+use App\Services\Setting\User\UserChangeStatusService;
+use App\Services\Setting\User\UserEditService;
+use App\Services\Setting\User\UserStoreService;
+use App\Services\Setting\User\UserUpdateService;
 
 class UserController extends Controller
 {
@@ -31,26 +31,25 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        return UserStore::store($request->only('password', 'name', 'email'));
+        return UserStoreService::store($request->only('password', 'name', 'email'));
     }
 
     public function update(UserRequest $request, int $id)
     {
-        return UserUpdate::update($id, $request->only('password', 'name', 'email'));
+        return UserUpdateService::update($id, $request->only('password', 'name', 'email'));
     }
 
-    /**
-     * @param int $userId
-     * @return JsonResponse
-     */
+
     public function edit(int $userId)
     {
-        return UserEdit::get($userId);
+        return UserEditService::get($userId);
     }
 
-    /**
-     * @return JsonResponse
-     */
+    public function changeStatus(int $userId)
+    {
+        return UserChangeStatusService::change($userId);
+    }
+
     public function userDatatableAjax()
     {
         return $this->userDataTable->ajax();

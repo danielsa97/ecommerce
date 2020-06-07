@@ -8,7 +8,7 @@
     <b-row>
         <b-col cols="12" class="text-right">
             <b-form-group>
-                <b-button variant="primary" v-b-modal.user_form>Cadastrar</b-button>
+                <b-button variant="primary" v-b-modal.user_modal>Cadastrar</b-button>
             </b-form-group>
         </b-col>
         <b-col>
@@ -17,7 +17,7 @@
             </b-card>
         </b-col>
     </b-row>
-    <user-form datatable-id="user_datatable"></user-form>
+    <user-manager datatable="user_datatable"></user-manager>
 @stop
 
 @section('js')

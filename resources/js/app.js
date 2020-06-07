@@ -12,7 +12,8 @@ Vue.use(VueIziToast, {
 
 //Components
 
-Vue.component('user-form', require("./components/setting/user/UserForm").default);
+Vue.component('user-manager', require("./components/setting/user/UserManager").default);
+Vue.component('form-group', require("./components/FormGroup").default);
 
 
 if (document.getElementById('app')) new Vue({

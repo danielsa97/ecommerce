@@ -16,8 +16,8 @@ class UserDataTable extends DataTable
                     <div class='dropdown'>
                       <button class='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'>Ações</button>
                       <div class='dropdown-menu'>
-                        <button class='dropdown-item' data-user_form='{$query->id}'><i class='fa fa-edit'></i> Editar </button>
-                        <button class='dropdown-item'><i class='fa fa-adjust'></i> Alterar Status </button>
+                        <button class='dropdown-item' data-user_edit='{$query->id}'><i class='fa fa-edit'></i> Editar </button>
+                        <button class='dropdown-item' data-user_change_status='{$query->id}'><i class='fa fa-adjust'></i> Alterar Status </button>
                       </div>
                     </div>";
             })

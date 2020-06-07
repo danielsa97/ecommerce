@@ -11,8 +11,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
-class UserStore implements StoreInterface
+class UserStoreService implements StoreInterface
 {
+    /**
+     * @param array $request
+     * @return JsonResponse
+     */
     public static function store(array $request): JsonResponse
     {
         try {

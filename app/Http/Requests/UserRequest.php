@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+use App\Services\CustomFormRequest;
+
+class UserRequest extends CustomFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +24,15 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required_without:id|confirmed|min:8'
+        $rules = [
+            'name' => "required",
+            'email' => "required|email|unique:users,email," . $this->id,
+            'password' => ["confirmed", "nullable", "min:8"]
         ];
+
+        if ($this->isMethod('POST')) {
+            array_push($rules['password'], "required");
+        }
+        return $rules;
     }
 }

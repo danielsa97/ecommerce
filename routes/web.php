@@ -26,8 +26,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
             Route::get('/', 'UserController@index')->name('index');
             Route::post('/', 'UserController@store')->name('store');
-            Route::get('{id}/edit', 'UserController@edit')->name('edit');
-            Route::put('{id}', 'UserController@update')->name('update');
+            Route::get('/{id}/edit', 'UserController@edit')->name('edit');
+            Route::put('/{id}/change-status', 'UserController@changeStatus')->name('change-status');
+            Route::put('/{id}', 'UserController@update')->name('update');
         });
     });
 
