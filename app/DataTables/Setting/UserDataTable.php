@@ -29,7 +29,8 @@ class UserDataTable extends DataTable
     {
         return $user->newQuery()
             ->join('status', 'users.status_id', 'status.id')
-            ->select('users.id', 'name', 'email', 'status.description as status');
+            ->join('profiles', 'profiles.id', 'users.profile_id')
+            ->select('users.id', 'users.name', 'profiles.name as profile', 'email', 'status.description as status');
     }
 
     public function html()
@@ -55,6 +56,7 @@ class UserDataTable extends DataTable
             ],
             'name' => ['title' => 'Nome'],
             'email' => ['title' => 'E-mail'],
+            'profile' => ['title' => 'Profile', 'name' => 'profiles.name'],
             'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
     }

@@ -9,6 +9,4 @@ class Status extends Model
     protected $table = 'status';
     public $timestamps = false;
     protected $guarded = [];
-
-
 }
