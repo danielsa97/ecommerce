@@ -16,6 +16,14 @@ Route::group(['middleware' => 'auth'], function () {
     //Catalog
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.', 'namespace' => 'Catalog'], function () {
 
+        Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
+            Route::get('/', 'CategoryController@index')->name('index');
+            Route::post('/', 'CategoryController@store')->name('store');
+            Route::get('/{id}/edit', 'CategoryController@edit')->name('edit');
+            Route::put('/{id}', 'CategoryController@update')->name('update');
+            Route::put('/{id}/change-status', 'CategoryController@changeStatus')->name('change-status');
+        });
+
         Route::group(['prefix' => 'department', 'as' => 'department.'], function () {
             Route::get('/', 'DepartmentController@index')->name('index');
             Route::post('/', 'DepartmentController@store')->name('store');
@@ -23,7 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/{id}', 'DepartmentController@update')->name('update');
             Route::put('/{id}/change-status', 'DepartmentController@changeStatus')->name('change-status');
         });
-
 
         Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
             Route::get('/', 'BrandController@index')->name('index');
@@ -33,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/{id}/change-status', 'BrandController@changeStatus')->name('change-status');
         });
     });
+
     //Setting
     Route::group(['prefix' => 'setting', 'as' => 'setting.', 'namespace' => 'Setting'], function () {
 
@@ -49,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
     //DataTables
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::group(['prefix' => 'catalog', 'namespace' => 'Catalog', 'as' => 'catalog.'], function () {
+            Route::get('category', 'CategoryController@categoryDatatableAjax')->name('category');
             Route::get('brand', 'BrandController@brandDatatableAjax')->name('brand');
             Route::get('department', 'DepartmentController@departmentDatatableAjax')->name('department');
         });

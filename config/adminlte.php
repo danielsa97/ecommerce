@@ -234,7 +234,8 @@ return [
                 ],
                 [
                     'text' => 'Categorias',
-                    'icon' => 'fas fa-filter'
+                    'icon' => 'fas fa-filter',
+                    'url' => '/catalog/category'
                 ],
                 [
                     'text' => 'Produtos',
