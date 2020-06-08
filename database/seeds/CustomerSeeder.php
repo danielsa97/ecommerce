@@ -20,9 +20,9 @@ class CustomerSeeder extends Seeder
         $user = User::firstOrCreate(
             [
                 'name' => 'Daniel de Sá',
-                'email' => 'daniel@customers.com',
+                'email' => 'customer@customer.com',
                 'email_verified_at' => now(),
-                'password' => bcrypt('password'),
+                'password' => 'password',
                 'status_id' => StatusService::get('general', 'A')->id,
                 'remember_token' => Str::random(10),
                 'profile_id' => Profile::whereName('customer')->first()->id
