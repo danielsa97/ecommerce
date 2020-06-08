@@ -45,3 +45,5 @@ php artisan serve
 Se tudo ocorreu bem, sua aplicação estara disponível para acesso.
 
 
+
+#### Daniel de Sá, David Felipe
