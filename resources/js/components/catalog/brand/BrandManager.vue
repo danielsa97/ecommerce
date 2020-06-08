@@ -1,22 +1,16 @@
 <template>
-    <b-modal id="user_modal"
-             title="Gerenciar usuário"
+    <b-modal id="brand_modal"
+             title="Gerenciar marca"
              @hidden="formReset"
              @ok.prevent="save"
              ok-title="Salvar"
              ok-only>
-        <form ref="user_form" data-action="/setting/user" data-method="post">
-            <form-group label="Nome completo" :required="true">
+        <form ref="brand_form" data-action="/catalog/brand" data-method="post">
+            <form-group label="Nome" :required="true">
                 <b-form-input name="name" :value="content.name"/>
             </form-group>
-            <form-group label="E-mail" :required="true">
-                <b-form-input name="email" :value="content.email"/>
-            </form-group>
-            <form-group label="Senha">
-                <b-form-input type="password" name="password" placeholder="*****"/>
-            </form-group>
-            <form-group label="Digite a senha novamente">
-                <b-form-input type="password" name="password_confirmation" placeholder="*****"/>
+            <form-group label="Descrição">
+                <b-form-textarea name="description" :value="content.description"/>
             </form-group>
         </form>
     </b-modal>
@@ -27,7 +21,7 @@
     import ChangeStatusMixin from "../../../mixins/ChangeStatusMixin";
 
     export default {
-        name: "UserManager",
+        name: "BrandManager",
         props: {
             datatable: {
                 type: String,
@@ -45,7 +39,7 @@
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);
-                    this.changeStatus(change_status, `/setting/user/${change_status}/change-status`, this.datatable);
+                    this.changeStatus(change_status, `/catalog/brand/${change_status}/change-status`, this.datatable);
                 });
             }
         },
@@ -57,19 +51,19 @@
                 if (id) {
                     this.request({
                         method: 'get',
-                        url: `/setting/user/${id}/edit`,
+                        url: `/catalog/brand/${id}/edit`,
                         onSuccess: async ({data}) => {
                             this.content = data;
-                            await this.$bvModal.show('user_modal');
-                            this.$refs['user_form'].dataset.action = `/setting/user/${id}`;
-                            this.$refs['user_form'].dataset.method = 'put';
+                            await this.$bvModal.show('brand_modal');
+                            this.$refs['brand_form'].dataset.action = `/catalog/brand/${id}`;
+                            this.$refs['brand_form'].dataset.method = 'put';
                         },
                         toastAlert: false
                     });
                 }
             },
             save() {
-                let form = this.$refs['user_form'];
+                let form = this.$refs['brand_form'];
                 this.request({
                     url: form.dataset.action,
                     method: form.dataset.method,
@@ -78,7 +72,7 @@
                         if (this.datatable) {
                             $(`#${this.datatable}`).DataTable().ajax.reload();
                         }
-                        this.$bvModal.hide('user_modal');
+                        this.$bvModal.hide('brand_modal');
                     },
                     onError: (error) => {
                         if (error.response.status === 422) {

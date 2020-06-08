@@ -13,7 +13,7 @@
         </b-col>
         <b-col>
             <b-card class="table-responsive">
-                {!! $userDataTable->table(['id'=>'user_datatable'])!!}
+                {!! $userDataTable->table()!!}
             </b-card>
         </b-col>
     </b-row>

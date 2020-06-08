@@ -24,8 +24,8 @@ class BrandDataTable extends DataTable
                     <div class='dropdown'>
                       <button class='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'>Ações</button>
                       <div class='dropdown-menu'>
-                        <a class='dropdown-item' href='{$query->id}'><i class='fa fa-edit'></i> Editar </a>
-                        <a class='dropdown-item' href='{$query->id}'><i class='fa fa-adjust'></i> Alterar Status </a>
+                        <button class='dropdown-item' data-edit='{$query->id}'>Editar</button>
+                        <button class='dropdown-item' data-change_status='{$query->id}'>Alterar Status</button>
                       </div>
                     </div>";
             })
@@ -38,12 +38,13 @@ class BrandDataTable extends DataTable
     {
         return $brand->newQuery()
             ->join('status', 'brands.status_id', 'status.id')
-            ->select('name', 'brands.description', 'status.description as status');
+            ->select('brands.id', 'name', 'brands.description', 'status.description as status');
     }
 
     public function html()
     {
         return $this->builder()
+            ->setTableId('brand_datatable')
             ->columns($this->getColumns())
             ->ajax(['url' => route('datatable.catalog.brand')])
             ->parameters($this->getBuilderParameters());
@@ -62,7 +63,7 @@ class BrandDataTable extends DataTable
                 'width' => '60px'
             ],
             'name' => ['title' => 'Nome', 'width' => '200px',],
-            'description' => ['title' => 'Descrição'],
+            'description' => ['title' => 'Descrição', 'name' => 'brands.description'],
             'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
     }

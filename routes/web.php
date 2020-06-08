@@ -18,6 +18,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
             Route::get('/', 'BrandController@index')->name('index');
+            Route::post('/', 'BrandController@store')->name('store');
+            Route::get('/{id}/edit', 'BrandController@edit')->name('edit');
+            Route::put('/{id}', 'BrandController@update')->name('update');
+            Route::put('/{id}/change-status', 'BrandController@changeStatus')->name('change-status');
         });
     });
     //Setting
@@ -27,8 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', 'UserController@index')->name('index');
             Route::post('/', 'UserController@store')->name('store');
             Route::get('/{id}/edit', 'UserController@edit')->name('edit');
-            Route::put('/{id}/change-status', 'UserController@changeStatus')->name('change-status');
             Route::put('/{id}', 'UserController@update')->name('update');
+            Route::put('/{id}/change-status', 'UserController@changeStatus')->name('change-status');
         });
     });
 
@@ -36,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     //DataTables
     Route::group(['prefix' => 'datatable', 'as' => 'datatable.'], function () {
         Route::group(['prefix' => 'catalog', 'namespace' => 'Catalog', 'as' => 'catalog.'], function () {
-            Route::get('user', 'BrandController@brandDatatableAjax')->name('brand');
+            Route::get('brand', 'BrandController@brandDatatableAjax')->name('brand');
         });
 
         Route::group(['prefix' => 'setting', 'namespace' => 'Setting', 'as' => 'setting.'], function () {

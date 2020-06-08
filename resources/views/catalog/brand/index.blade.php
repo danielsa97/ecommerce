@@ -8,7 +8,7 @@
     <b-row>
         <b-col cols="12" class="text-right">
             <b-form-group>
-                <b-button variant="primary">Cadastrar</b-button>
+                <b-button variant="primary" v-b-modal.brand_modal>Cadastrar</b-button>
             </b-form-group>
         </b-col>
         <b-col>
@@ -17,6 +17,7 @@
             </b-card>
         </b-col>
     </b-row>
+    <brand-manager datatable="brand_datatable"></brand-manager>
 @stop
 
 @section('js')

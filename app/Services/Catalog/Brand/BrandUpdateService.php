@@ -1,34 +1,35 @@
 <?php
 
 
-namespace App\Services\Setting\User;
+namespace App\Services\Catalog\Brand;
 
 
-use App\Services\StatusService;
-use App\Services\StoreInterface;
-use App\User;
+use App\Services\UpdateInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
-class UserStoreService implements StoreInterface
+class BrandUpdateService extends BrandService implements UpdateInterface
 {
+
     /**
+     * @param int $id
      * @param array $request
      * @return JsonResponse
      */
-    public static function store(array $request): JsonResponse
+    public static function update(int $id, array $request): JsonResponse
     {
         try {
-            $request['status_id'] = StatusService::get('general', 'A')->id;
-            $user = User::query()->create($request);
-            return new JsonResponse($user);
+            $brand = self::find($id);
+            $brand->update(array_filter($request));
+            $brand->save();
+            return new JsonResponse($brand);
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([
                 "success" => false,
-                "message" => "Falha no cadastro de usuário",
+                "message" => "Falha na atualização da marca",
             ], 500));
         }
     }
