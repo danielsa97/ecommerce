@@ -36,6 +36,10 @@
         },
         mounted() {
             if (this.datatable) {
+                console.log(document.getElementById(`btn_${this.datatable}`))
+                // document.getElementById(`btn_${this.datatable}`).onclick = () => {
+                //     this.$bvModal.show('department_modal');
+                // };
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);

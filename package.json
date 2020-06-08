@@ -26,6 +26,7 @@
         "vue-izitoast": "^1.2.1"
     },
     "dependencies": {
-        "datatables.net-bs4": "^1.10.20"
+        "datatables.net-bs4": "^1.10.20",
+        "datatables.net-buttons-bs": "^1.6.2"
     }
 }
