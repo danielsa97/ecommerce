@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Services\CustomFormRequest;
 
-class BrandRequest extends CustomFormRequest
+class DepartmentRequest extends CustomFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

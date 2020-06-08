@@ -227,6 +227,12 @@ return [
             'icon_color' => 'white',
             'submenu' => [
                 [
+                    'text' => 'Departamentos',
+                    'icon' => 'fas fa-store',
+                    'url' => '/catalog/department'
+
+                ],
+                [
                     'text' => 'Categorias',
                     'icon' => 'fas fa-filter'
                 ],
