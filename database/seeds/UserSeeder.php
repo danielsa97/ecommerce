@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Profile;
 use App\Services\StatusService;
 use App\User;
 use Illuminate\Database\Seeder;
@@ -21,6 +22,7 @@ class UserSeeder extends Seeder
             'password' => 'password',
             'status_id' => StatusService::get('general', 'A')->id,
             'remember_token' => Str::random(10),
+            'profile_id' => Profile::whereName('administrator')->first()->id
         ]);
 
     }
