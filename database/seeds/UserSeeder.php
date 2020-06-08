@@ -15,15 +15,26 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::query()->firstOrCreate([
-            'name' => 'Administrador',
-            'email' => 'admin@admin.com',
-            'email_verified_at' => now(),
-            'password' => 'password',
-            'status_id' => StatusService::get('general', 'A')->id,
-            'remember_token' => Str::random(10),
-            'profile_id' => Profile::whereName('administrator')->first()->id
+        $status = StatusService::get('general', 'A')->id;
+        User::query()->insertOrIgnore([
+            [
+                'name' => 'Administrador',
+                'email' => 'admin@admin.com',
+                'email_verified_at' => now(),
+                'password' => 'password',
+                'status_id' => $status,
+                'remember_token' => Str::random(10),
+                'profile_id' => Profile::whereName('administrator')->first()->id
+            ],
+            [
+                'name' => 'Daniel de Sá',
+                'email' => 'customer@customer.com',
+                'email_verified_at' => now(),
+                'password' => 'password',
+                'status_id' => $status,
+                'remember_token' => Str::random(10),
+                'profile_id' => Profile::whereName('customer')->first()->id
+            ]
         ]);
-
     }
 }

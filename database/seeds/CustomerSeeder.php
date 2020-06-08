@@ -17,19 +17,9 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::firstOrCreate(
-            [
-                'name' => 'Daniel de Sá',
-                'email' => 'customer@customer.com',
-                'email_verified_at' => now(),
-                'password' => 'password',
-                'status_id' => StatusService::get('general', 'A')->id,
-                'remember_token' => Str::random(10),
-                'profile_id' => Profile::whereName('customer')->first()->id
-            ]
-        );
+        $user = User::whereEmail('customer@customer.com')->first();
         Customer::query()->firstOrCreate([
-            'name' => 'Daniel de Sá',
+            'name' => $user->name,
             'date_of_birth' => Carbon::now()->toDateString(),
             'document' => '02033531295',
             'gender' => 'M',
