@@ -13,3 +13,6 @@ yarn-error.log
 /.idea
 
 public/js/
+
+package-lock.json
+composer.lock

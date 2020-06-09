@@ -1,7 +1,10 @@
 require('./bootstrap');
+require('./js-routes');
 import Vue from 'vue';
 import VueIziToast from 'vue-izitoast';
-import { BootstrapVue } from 'bootstrap-vue';
+import vSelect from 'vue-select'
+
+import {BootstrapVue} from 'bootstrap-vue';
 
 Vue.use(BootstrapVue);
 Vue.use(VueIziToast, {
@@ -19,6 +22,7 @@ Vue.component('category-manager', require("./components/catalog/category/Categor
 Vue.component('discount-manager', require("./components/catalog/discount/DiscountManager").default);
 
 //General Components
+Vue.component('v-select', vSelect);
 Vue.component('form-group', require("./components/FormGroup").default);
 Vue.component('select2', require("./components/Select2").default);
 
