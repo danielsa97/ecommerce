@@ -6,6 +6,7 @@ namespace App\Services\Catalog\Department;
 
 use App\Models\Department;
 use App\Services\SearchInterface;
+use App\Services\StatusService;
 use Illuminate\Http\JsonResponse;
 use Mockery\Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -17,7 +18,8 @@ class SearchDepartmentService implements SearchInterface
     {
         try {
             $search = $request['search'] ?? null;
-            $query = Department::query();
+            $statusId = StatusService::get('general', 'A')->id;
+            $query = Department::query()->where('status_id', $statusId);
             if ($search) {
                 $query = $query->where('name', 'like', "%$search%");
             }

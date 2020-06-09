@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
-class UserService implements UserInterface
+abstract class UserService implements UserInterface
 {
 
     public static function find(int $id): User

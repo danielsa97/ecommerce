@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
-class DepartmentService implements DepartmentInterface
+abstract class DepartmentService implements DepartmentInterface
 {
 
     public static function find(int $id): Department

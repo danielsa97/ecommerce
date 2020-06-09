@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
-class BrandService implements BrandInterface
+abstract class BrandService implements BrandInterface
 {
 
     public static function find(int $id): Brand

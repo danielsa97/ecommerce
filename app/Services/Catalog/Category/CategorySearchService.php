@@ -6,6 +6,7 @@ namespace App\Services\Catalog\Category;
 
 use App\Models\Category;
 use App\Services\SearchInterface;
+use App\Services\StatusService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Mockery\Exception;
@@ -17,7 +18,8 @@ class CategorySearchService implements SearchInterface
     {
         try {
             $search = $request['search'] ?? null;
-            $query = Category::query();
+            $statusId = StatusService::get('general', 'A')->id;
+            $query = Category::query()->where('status_id', $statusId);
             if ($search) {
                 $query = $query->where('name', 'like', "%$search%");
             }
