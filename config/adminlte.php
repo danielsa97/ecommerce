@@ -245,6 +245,7 @@ return [
                 ],
                 [
                     'text' => 'Descontos',
+                    'url' => '/catalog/discount'
                 ],
             ]
         ],
