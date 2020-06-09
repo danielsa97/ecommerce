@@ -39,6 +39,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('/{id}', 'BrandController@update')->name('update');
             Route::put('/{id}/change-status', 'BrandController@changeStatus')->name('change-status');
         });
+
+        Route::group(['prefix' => 'discount', 'as' => 'discount.'], function () {
+            Route::get('/', 'DiscountController@index')->name('index');
+            Route::post('/', 'DiscountController@store')->name('store');
+            Route::get('/{id}/edit', 'DiscountController@edit')->name('edit');
+        });
     });
 
     //Setting

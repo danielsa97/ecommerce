@@ -250,6 +250,7 @@ return [
                 [
                     'text' => 'Descontos',
                     'icon' => 'fa fa-percent',
+                    'url' => '/catalog/discount'
                 ],
             ]
         ],
