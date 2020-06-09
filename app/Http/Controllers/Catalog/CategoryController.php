@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Services\Catalog\Category\CategoryChangeStatusService;
 use App\Services\Catalog\Category\CategoryEditService;
+use App\Services\Catalog\Category\CategorySearchService;
 use App\Services\Catalog\Category\CategoryStoreService;
 use App\Services\Catalog\Category\CategoryUpdateService;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -52,5 +54,10 @@ class CategoryController extends Controller
     {
         return $this->categoryDataTable->ajax();
 
+    }
+
+    public function categorySearch(Request $request)
+    {
+        return CategorySearchService::search($request->all());
     }
 }

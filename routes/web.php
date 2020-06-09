@@ -22,6 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/{id}/edit', 'CategoryController@edit')->name('edit');
             Route::put('/{id}', 'CategoryController@update')->name('update');
             Route::put('/{id}/change-status', 'CategoryController@changeStatus')->name('change-status');
+            Route::get('/category-search', 'CategoryController@categorySearch')->name('search');
+
         });
 
         Route::group(['prefix' => 'department', 'as' => 'department.'], function () {
@@ -30,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/{id}/edit', 'DepartmentController@edit')->name('edit');
             Route::put('/{id}', 'DepartmentController@update')->name('update');
             Route::put('/{id}/change-status', 'DepartmentController@changeStatus')->name('change-status');
+            Route::get('/department-search', 'DepartmentController@departmentSearch')->name('search');
+
         });
 
         Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {

@@ -19,6 +19,7 @@ Vue.component('category-manager', require("./components/catalog/category/Categor
 
 //General Components
 Vue.component('form-group', require("./components/FormGroup").default);
+Vue.component('select2', require("./components/Select2").default);
 
 
 if (document.getElementById('app')) new Vue({
