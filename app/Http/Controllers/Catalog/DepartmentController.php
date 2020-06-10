@@ -57,6 +57,6 @@ class DepartmentController extends Controller
 
     public function departmentSearch(Request $request)
     {
-        return SearchDepartmentService::search($request->all());
+        return SearchDepartmentService::search($request);
     }
 }

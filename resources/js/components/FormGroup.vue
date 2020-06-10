@@ -1,5 +1,5 @@
 <template>
-    <fieldset class="form-group" @input="clearError" ref="field">
+    <fieldset @change="clearError" class="form-group" ref="field">
         <legend v-if="label" :data-legend="fieldName" tabindex="-1" class="bv-no-focus-ring col-form-label pt-0">
             {{label}} <span v-if="required" class="text-danger">*</span>
         </legend>
@@ -36,11 +36,13 @@
         },
         methods: {
             clearError() {
-                let legend, errorElement;
-                legend = this.$refs['field'].querySelector(`[data-legend=${this.fieldName}]`);
-                errorElement = this.$refs['field'].querySelector(`[data-error=${this.fieldName}]`);
-                if (legend) legend.classList.remove('text-danger');
-                if (errorElement) errorElement.innerHTML = null;
+                if (this.fieldName) {
+                    let legend, errorElement;
+                    legend = this.$refs['field'].querySelector(`[data-legend=${this.fieldName}]`);
+                    errorElement = this.$refs['field'].querySelector(`[data-error=${this.fieldName}]`);
+                    if (legend) legend.classList.remove('text-danger');
+                    if (errorElement) errorElement.innerHTML = null;
+                }
             }
         }
     }

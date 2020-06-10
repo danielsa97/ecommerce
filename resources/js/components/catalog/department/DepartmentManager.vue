@@ -1,7 +1,7 @@
 <template>
     <b-modal id="department_modal"
-             title="Gerenciar departamento"
-             @hidden="formReset"
+             title="Gerenciar Departamento"
+             @hidden="reset"
              @ok.prevent="save"
              ok-title="Salvar"
              ok-only>
@@ -48,8 +48,8 @@
             }
         },
         methods: {
-            formReset() {
-                this.content = {};
+            reset() {
+                Object.assign(this.$data, this.$options.data.apply(this));
             },
             get(id = undefined) {
                 if (id) {

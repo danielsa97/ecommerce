@@ -1,7 +1,7 @@
 <template>
     <b-modal id="brand_modal"
-             title="Gerenciar marca"
-             @hidden="formReset"
+             title="Gerenciar Marca"
+             @hidden="reset"
              @ok.prevent="save"
              ok-title="Salvar"
              ok-only>
@@ -44,8 +44,8 @@
             }
         },
         methods: {
-            formReset() {
-                this.content = {};
+            reset() {
+                Object.assign(this.$data, this.$options.data.apply(this));
             },
             get(id = undefined) {
                 if (id) {

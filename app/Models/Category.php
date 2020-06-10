@@ -12,4 +12,19 @@ class Category extends Model
     {
         return $this->belongsTo(Status::class, 'status_id', 'id')->where('type', 'general');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'category_id');
+    }
+
+    public function categories()
+    {
+        return $this->hasMany(self::class);
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }

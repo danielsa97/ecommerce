@@ -4,27 +4,31 @@
 namespace App\Services\Catalog\Category;
 
 
+use App\Http\Resources\Catalog\Category\CategorySearchResource;
 use App\Models\Category;
 use App\Services\SearchInterface;
 use App\Services\StatusService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Mockery\Exception;
 
 class CategorySearchService implements SearchInterface
 {
 
-    public static function search(array $request = []): JsonResponse
+    public static function search(Request &$request): JsonResponse
     {
         try {
-            $search = $request['search'] ?? null;
             $statusId = StatusService::get('general', 'A')->id;
             $query = Category::query()->where('status_id', $statusId);
-            if ($search) {
-                $query = $query->where('name', 'like', "%$search%");
+            if ($request->search) {
+                $query = $query->where('name', 'like', "%{$request->search}%");
             }
-            $results = $query->select('id', 'name as text')->limit(10)->get()->toArray();
-            return response()->json(['results' => $results]);
+            if ($request->category_id) {
+                $query = $query->where('id', '!=', $request->category_id);
+            }
+//            dd(CategorySearchResource::collection($query->limit(10)->get()));
+            return response()->json(CategorySearchResource::collection($query->limit(10)->get()));
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
                 "success" => false,
