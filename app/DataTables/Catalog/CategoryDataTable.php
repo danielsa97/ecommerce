@@ -38,7 +38,7 @@ class CategoryDataTable extends DataTable
     {
         return $brand->newQuery()
             ->join('status', 'categories.status_id', 'status.id')
-            ->join('categories as parent', 'categories.category_id', 'parent.id')
+            ->leftJoin('categories as parent', 'categories.category_id', 'parent.id')
             ->join('departments', 'categories.department_id', 'departments.id')
             ->select('departments.name as department','categories.id','parent.name as parent_category', 'categories.name', 'categories.description', 'status.description as status');
     }
