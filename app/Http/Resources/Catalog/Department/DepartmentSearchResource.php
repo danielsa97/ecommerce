@@ -16,8 +16,8 @@ class DepartmentSearchResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'code' => $this->id,
-            'label' => $this->name
+            'code' => $this->id ?? null,
+            'label' => $this->name ?? null
         ];
     }
 }

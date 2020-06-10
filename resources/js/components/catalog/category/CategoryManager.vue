@@ -16,7 +16,7 @@
                 <form-group label="Departamento" name="department_id" :required="true">
                     <b-row>
                         <b-col cols="10">
-                            <v-select v-model="content.department"
+                            <v-select v-model="content.select.department"
                                       :options="options.department"
                                       @search="departmentSearch"/>
                         </b-col>
@@ -28,7 +28,7 @@
                     </b-row>
                 </form-group>
                 <form-group label="Categoria Pai">
-                    <v-select v-model="content.category"
+                    <v-select v-model="content.select.category"
                               :options="options.category"
                               @search="categorySearch"/>
                 </form-group>
@@ -56,8 +56,7 @@
             return {
                 category_id: null,
                 content: {
-                    category: null,
-                    department: null
+                    select: {},
                 },
                 options: {
                     category: [],
