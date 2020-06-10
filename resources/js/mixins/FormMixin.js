@@ -6,6 +6,9 @@ const FormMixin = {
                 options.method = ['post', 'get'].includes(method.toLowerCase()) ? method : 'post';
                 if (options.data instanceof FormData) {
                     options.data.append('_method', method);
+                    Object.entries(options.appends ?? {}).forEach(item => {
+                        options.data.append(item[0], item[1] ?? '');
+                    });
                 } else {
                     options.data = Object.assign({_method: method}, options.data);
                 }

@@ -4,27 +4,28 @@
 namespace App\Services\Catalog\Department;
 
 
+use App\Http\Resources\Catalog\Department\DepartmentSearchResource;
 use App\Models\Department;
 use App\Services\SearchInterface;
 use App\Services\StatusService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Mockery\Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 
 class SearchDepartmentService implements SearchInterface
 {
-    public static function search(array $request = []): JsonResponse
+    public static function search(Request &$request): JsonResponse
     {
         try {
-            $search = $request['search'] ?? null;
+
             $statusId = StatusService::get('general', 'A')->id;
             $query = Department::query()->where('status_id', $statusId);
-            if ($search) {
-                $query = $query->where('name', 'like', "%$search%");
+            if ($request->search) {
+                $query = $query->where('name', 'like', "%{$request->search}%");
             }
-            $results = $query->select('id', 'name as text')->limit(10)->get()->toArray();
-            return response()->json(['results' => $results]);
+            return response()->json(DepartmentSearchResource::collection($query->limit(10)->get()));
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
                 "success" => false,
