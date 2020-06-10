@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('category', 'CategoryController@categoryDatatableAjax')->name('category');
             Route::get('brand', 'BrandController@brandDatatableAjax')->name('brand');
             Route::get('department', 'DepartmentController@departmentDatatableAjax')->name('department');
+            Route::get('discount', 'DiscountController@discountDatatableAjax')->name('discount');
         });
 
         Route::group(['prefix' => 'setting', 'namespace' => 'Setting', 'as' => 'setting.'], function () {

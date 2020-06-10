@@ -30,9 +30,11 @@ class DiscountDataTable extends DataTable
      * @param \App\Models\Discount $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Discount $model)
+    public function query(Discount $discount)
     {
-        return $model->newQuery();
+        return $discount->newQuery()
+            ->join('status', 'discounts.status_id', 'status.id')
+            ->select('discounts.id', 'discounts.value', 'discounts.type', 'voucher', 'status.description as status');
     }
 
     /**
@@ -45,6 +47,7 @@ class DiscountDataTable extends DataTable
         return $this->builder()
             ->setTableId('discount_datatable')
             ->columns($this->getColumns())
+            ->ajax(['url' => route('datatable.catalog.discount')])
             ->parameters($this->getBuilderParameters());
     }
 
@@ -56,15 +59,18 @@ class DiscountDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            'action' => [
+                'title' => 'Ações',
+                'orderable' => false,
+                'searchable' => false,
+                'exportable' => false,
+                'printable' => false,
+                'width' => '60px'
+            ],
+            'value' => ['title' => 'Valor', 'name' => 'discounts.value', 'width' => '200px'],
+            'voucher' => ['title' => 'Voucher'],
+            'tipo' =>  ['tittle' => 'Tipo', 'name' => 'discounts.type'],
+            'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
     }
 
