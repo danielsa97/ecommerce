@@ -11,6 +11,8 @@ use App\Services\Catalog\Department\DepartmentChangeStatusService;
 use App\Services\Catalog\Department\DepartmentEditService;
 use App\Services\Catalog\Department\DepartmentStoreService;
 use App\Services\Catalog\Department\DepartmentUpdateService;
+use App\Services\Catalog\Department\SearchDepartmentService;
+use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
@@ -51,6 +53,10 @@ class DepartmentController extends Controller
     public function departmentDatatableAjax()
     {
         return $this->departmentDataTable->ajax();
+    }
 
+    public function departmentSearch(Request $request)
+    {
+        return SearchDepartmentService::search($request->all());
     }
 }

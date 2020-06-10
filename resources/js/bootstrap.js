@@ -4,6 +4,8 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 require('overlayscrollbars');
+require('select2');
+
 require('bootstrap');
 require('datatables.net-buttons-bs');
 require('datatables.net-bs4');
@@ -14,6 +16,7 @@ $.extend(true, $.fn.dataTable.defaults, {
     "language": DATATABLE_PT_BR,
 });
 
+$.fn.select2.defaults.set('language', require("select2/dist/js/i18n/pt-BR"));
 
 window.btnCadastroDataTable = (dataTableId = 'dataTableBuilder') => {
     let table = $(`#${dataTableId}`).css('width', "100%").DataTable();

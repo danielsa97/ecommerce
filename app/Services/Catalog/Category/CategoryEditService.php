@@ -16,6 +16,7 @@ class CategoryEditService extends CategoryService implements EditInterface
     public static function get(int $id): JsonResponse
     {
         $category = self::find($id);
+
         return new JsonResponse($category);
     }
 }

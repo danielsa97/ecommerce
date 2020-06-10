@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-modal id="category_modal"
-                 title="Gerenciar marca"
+                 title="Gerenciar categoria"
                  @hidden="formReset"
                  @ok.prevent="save"
                  ok-title="Salvar"
@@ -13,22 +13,21 @@
                 <form-group label="Descrição">
                     <b-form-textarea name="description" :value="content.description"/>
                 </form-group>
-
                 <form-group label="Departamento" :required="true">
                     <b-row>
                         <b-col cols="10">
-                            <b-form-select name="department_id" :value="content.department_id"/>
+                            <select2 name="department_id" url="/catalog/department/department-search"/>
                         </b-col>
-                        <b-col cols="2" class="text-right">
-                            <b-button variant="primary" v-b-tooltip="'Novo'" v-b-modal.department_modal>
+                        <b-col cols="2">
+                            <b-button variant="primary" v-b-tooltip="'Novo'" block v-b-modal.department_modal>
                                 <i class="fa fa-plus"/>
                             </b-button>
                         </b-col>
                     </b-row>
-
                 </form-group>
-
-
+                <form-group label="Categoria superior">
+                    <select2 name="category_id" url="/catalog/category/category-search"/>
+                </form-group>
             </form>
         </b-modal>
         <department-manager/>

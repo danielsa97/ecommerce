@@ -228,28 +228,23 @@ return [
             'submenu' => [
                 [
                     'text' => 'Departamentos',
-                    'icon' => 'fas fa-store',
                     'url' => '/catalog/department'
 
                 ],
                 [
                     'text' => 'Categorias',
-                    'icon' => 'fas fa-filter',
                     'url' => '/catalog/category'
                 ],
                 [
                     'text' => 'Produtos',
-                    'icon' => 'fas fa-cart-plus'
 
                 ],
                 [
                     'text' => 'Marcas',
-                    'icon' => 'fas fa-copyright',
                     'url' => '/catalog/brand'
                 ],
                 [
                     'text' => 'Descontos',
-                    'icon' => 'fa fa-percent',
                     'url' => '/catalog/discount'
                 ],
             ]
