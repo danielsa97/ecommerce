@@ -9,7 +9,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Log;
 use Mockery\Exception;
 
-class CategoryService implements CategoryInterface
+abstract class CategoryService implements CategoryInterface
 {
 
     public static function find(int $id): Category

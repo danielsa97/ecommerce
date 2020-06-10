@@ -38,7 +38,9 @@ class CategoryDataTable extends DataTable
     {
         return $brand->newQuery()
             ->join('status', 'categories.status_id', 'status.id')
-            ->select('categories.id', 'name', 'categories.description', 'status.description as status');
+            ->join('categories as parent', 'categories.category_id', 'parent.id')
+            ->join('departments', 'categories.department_id', 'departments.id')
+            ->select('departments.name as department','categories.id','parent.name as parent_category', 'categories.name', 'categories.description', 'status.description as status');
     }
 
     public function html()
@@ -64,6 +66,8 @@ class CategoryDataTable extends DataTable
             ],
             'name' => ['title' => 'Nome', 'width' => '200px',],
             'description' => ['title' => 'Descrição', 'name' => 'categories.description'],
+            'department' => ['title' => 'Departamento', 'name' => 'departments.name'],
+            'parent_category' => ['title' => 'Categoria Pai', 'name' => 'parent.name'],
             'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
     }

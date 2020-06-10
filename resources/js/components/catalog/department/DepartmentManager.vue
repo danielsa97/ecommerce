@@ -1,7 +1,7 @@
 <template>
     <b-modal id="department_modal"
-             title="Gerenciar departamento"
-             @hidden="formReset"
+             title="Gerenciar Departamento"
+             @hidden="reset"
              @ok.prevent="save"
              ok-title="Salvar"
              ok-only>
@@ -43,23 +43,23 @@
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);
-                    this.changeStatus(change_status, `/catalog/department/${change_status}/change-status`, this.datatable);
+                    this.changeStatus(change_status, route('catalog.department.edit', {id: change_status}), this.datatable);
                 });
             }
         },
         methods: {
-            formReset() {
-                this.content = {};
+            reset() {
+                Object.assign(this.$data, this.$options.data.apply(this));
             },
             get(id = undefined) {
                 if (id) {
                     this.request({
                         method: 'get',
-                        url: `/catalog/department/${id}/edit`,
+                        url: route('catalog.department.edit', {id: id}),
                         onSuccess: async ({data}) => {
                             this.content = data;
                             await this.$bvModal.show('department_modal');
-                            this.$refs['department_form'].dataset.action = `/catalog/department/${id}`;
+                            this.$refs['department_form'].dataset.action = route('catalog.department.update', {id: id});
                             this.$refs['department_form'].dataset.method = 'put';
                         },
                         toastAlert: false

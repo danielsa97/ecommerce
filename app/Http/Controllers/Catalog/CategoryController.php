@@ -58,6 +58,6 @@ class CategoryController extends Controller
 
     public function categorySearch(Request $request)
     {
-        return CategorySearchService::search($request->all());
+        return CategorySearchService::search($request);
     }
 }

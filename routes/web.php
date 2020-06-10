@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/{id}/edit', 'CategoryController@edit')->name('edit');
             Route::put('/{id}', 'CategoryController@update')->name('update');
             Route::put('/{id}/change-status', 'CategoryController@changeStatus')->name('change-status');
-            Route::get('/category-search', 'CategoryController@categorySearch')->name('search');
+            Route::post('/category-search', 'CategoryController@categorySearch')->name('search');
 
         });
 

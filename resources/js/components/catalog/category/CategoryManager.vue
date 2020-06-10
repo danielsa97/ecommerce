@@ -1,8 +1,8 @@
 <template>
     <div>
         <b-modal id="category_modal"
-                 title="Gerenciar categoria"
-                 @hidden="formReset"
+                 title="Gerenciar Categoria"
+                 @hidden="reset"
                  @ok.prevent="save"
                  ok-title="Salvar"
                  ok-only>
@@ -13,10 +13,12 @@
                 <form-group label="Descrição">
                     <b-form-textarea name="description" :value="content.description"/>
                 </form-group>
-                <form-group label="Departamento" :required="true">
+                <form-group label="Departamento" name="department_id" :required="true">
                     <b-row>
                         <b-col cols="10">
-                            <select2 name="department_id" url="/catalog/department/department-search"/>
+                            <v-select v-model="content.department"
+                                      :options="options.department"
+                                      @search="departmentSearch"/>
                         </b-col>
                         <b-col cols="2">
                             <b-button variant="primary" v-b-tooltip="'Novo'" block v-b-modal.department_modal>
@@ -25,8 +27,10 @@
                         </b-col>
                     </b-row>
                 </form-group>
-                <form-group label="Categoria superior">
-                    <select2 name="category_id" url="/catalog/category/category-search"/>
+                <form-group label="Categoria Pai">
+                    <v-select v-model="content.category"
+                              :options="options.category"
+                              @search="categorySearch"/>
                 </form-group>
             </form>
         </b-modal>
@@ -49,21 +53,44 @@
         mixins: [FormMixin, ChangeStatusMixin],
         data() {
             return {
-                content: {}
+                category_id: null,
+                content: {
+                    category: null,
+                    department: null
+                },
+                options: {
+                    category: [],
+                    department: []
+                },
             }
         },
         mounted() {
+
             if (this.datatable) {
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);
-                    this.changeStatus(change_status, `/catalog/category/${change_status}/change-status`, this.datatable);
+                    this.changeStatus(change_status, route('catalog.category.change-status', {id: change_status}), this.datatable);
                 });
             }
         },
         methods: {
-            formReset() {
-                this.content = {};
+            async categorySearch(search, loading) {
+                loading(true);
+                let {data} = await axios.post(route('catalog.category.search') + `?search=${search}`, {
+                    category_id: this.category_id
+                });
+                this.options.category = data;
+                loading(false);
+            },
+            async departmentSearch(search, loading) {
+                loading(true);
+                let {data} = await axios.get(route('catalog.department.search') + `?search=${search}`);
+                this.options.department = data;
+                loading(false);
+            },
+            reset() {
+                Object.assign(this.$data, this.$options.data.apply(this));
             },
             get(id = undefined) {
                 if (id) {
@@ -72,6 +99,7 @@
                         url: `/catalog/category/${id}/edit`,
                         onSuccess: async ({data}) => {
                             this.content = data;
+                            this.category_id = id;
                             await this.$bvModal.show('category_modal');
                             this.$refs['category_form'].dataset.action = `/catalog/category/${id}`;
                             this.$refs['category_form'].dataset.method = 'put';
@@ -85,6 +113,10 @@
                 this.request({
                     url: form.dataset.action,
                     method: form.dataset.method,
+                    appends: {
+                        category_id: this.content.category?.code,
+                        department_id: this.content.department?.code
+                    },
                     data: new FormData(form),
                     onSuccess: () => {
                         if (this.datatable) {

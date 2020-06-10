@@ -1,7 +1,7 @@
 <template>
     <b-modal id="user_modal"
-             title="Gerenciar usuário"
-             @hidden="formReset"
+             title="Gerenciar Usuário"
+             @hidden="reset"
              @ok.prevent="save"
              ok-title="Salvar"
              ok-only>
@@ -45,23 +45,23 @@
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);
-                    this.changeStatus(change_status, `/setting/user/${change_status}/change-status`, this.datatable);
+                    this.changeStatus(change_status, route('setting.user.change-status', {id: change_status}), this.datatable);
                 });
             }
         },
         methods: {
-            formReset() {
-                this.content = {};
+            reset() {
+                Object.assign(this.$data, this.$options.data.apply(this));
             },
             get(id = undefined) {
                 if (id) {
                     this.request({
                         method: 'get',
-                        url: `/setting/user/${id}/edit`,
+                        url: route('setting.user.edit', {id: id}),
                         onSuccess: async ({data}) => {
                             this.content = data;
                             await this.$bvModal.show('user_modal');
-                            this.$refs['user_form'].dataset.action = `/setting/user/${id}`;
+                            this.$refs['user_form'].dataset.action = route('setting.user.update', {id: id});
                             this.$refs['user_form'].dataset.method = 'put';
                         },
                         toastAlert: false

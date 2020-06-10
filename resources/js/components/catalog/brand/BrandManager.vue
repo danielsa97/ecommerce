@@ -1,7 +1,7 @@
 <template>
     <b-modal id="brand_modal"
-             title="Gerenciar marca"
-             @hidden="formReset"
+             title="Gerenciar Marca"
+             @hidden="reset"
              @ok.prevent="save"
              ok-title="Salvar"
              ok-only>
@@ -39,23 +39,23 @@
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);
-                    this.changeStatus(change_status, `/catalog/brand/${change_status}/change-status`, this.datatable);
+                    this.changeStatus(change_status, route('catalog.brand.change-status', {id: change_status}), this.datatable);
                 });
             }
         },
         methods: {
-            formReset() {
-                this.content = {};
+            reset() {
+                Object.assign(this.$data, this.$options.data.apply(this));
             },
             get(id = undefined) {
                 if (id) {
                     this.request({
                         method: 'get',
-                        url: `/catalog/brand/${id}/edit`,
+                        url: route('catalog.brand.edit', {id: id}),
                         onSuccess: async ({data}) => {
                             this.content = data;
                             await this.$bvModal.show('brand_modal');
-                            this.$refs['brand_form'].dataset.action = `/catalog/brand/${id}`;
+                            this.$refs['brand_form'].dataset.action = route('catalog.brand.update', {id: id});
                             this.$refs['brand_form'].dataset.method = 'put';
                         },
                         toastAlert: false
