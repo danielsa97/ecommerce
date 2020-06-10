@@ -22,6 +22,11 @@ class DiscountController extends Controller
         ]);
     }
 
+    public function discountDatatableAjax()
+    {
+        return $this->discountDataTable->ajax();
+
+    }
 
     public static function store()
     {

@@ -17,7 +17,7 @@
             </b-card>
         </b-col>
     </b-row>
-    <discount-manager datatable="department_datatable"></discount-manager>
+    <discount-manager datatable="discount_datatable"></discount-manager>
 @stop
 
 @section('js')
