@@ -14,25 +14,3 @@ $.extend(true, $.fn.dataTable.defaults, {
     "language": DATATABLE_PT_BR,
 });
 
-
-window.btnCadastroDataTable = (dataTableId = 'dataTableBuilder') => {
-    let table = $(`#${dataTableId}`).css('width', "100%").DataTable();
-    new $.fn.dataTable.Buttons(table, {
-        buttons: [
-            {
-                text: '<i class="fa fa-plus-circle"></i> Cadastrar',
-                className: 'btn btn-primary btn-sm',
-                attr: {
-                    id: `btn_${dataTableId}`
-                }
-                // action: function () {
-                //     location.href = route;
-                // }
-            }
-        ]
-    });
-
-    table.buttons(1, null).container().prependTo(
-        table.table().container()
-    );
-};

@@ -19,6 +19,7 @@
 <script>
     import FormMixin from "../../../mixins/FormMixin";
     import ChangeStatusMixin from "../../../mixins/ChangeStatusMixin";
+    import DataTableButtonMixin from "../../../mixins/DataTableButtonMixin";
 
     export default {
         name: "DepartmentManager",
@@ -28,7 +29,7 @@
                 required: false
             }
         },
-        mixins: [FormMixin, ChangeStatusMixin],
+        mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
         data() {
             return {
                 content: {}
@@ -36,10 +37,13 @@
         },
         mounted() {
             if (this.datatable) {
-                console.log(document.getElementById(`btn_${this.datatable}`))
-                // document.getElementById(`btn_${this.datatable}`).onclick = () => {
-                //     this.$bvModal.show('department_modal');
-                // };
+                this.btnDataTableCreate(this.datatable, () => {
+                    this.$bvModal.show('department_modal');
+                });
+                this.btnDataTableCreate(this.datatable, () => {
+                    this.$bvModal.show('department_modal');
+                });
+
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);

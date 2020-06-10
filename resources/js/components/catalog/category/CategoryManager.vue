@@ -41,6 +41,7 @@
 <script>
     import FormMixin from "../../../mixins/FormMixin";
     import ChangeStatusMixin from "../../../mixins/ChangeStatusMixin";
+    import DataTableButtonMixin from "../../../mixins/DataTableButtonMixin";
 
     export default {
         name: "CategoryManager",
@@ -50,7 +51,7 @@
                 required: false
             }
         },
-        mixins: [FormMixin, ChangeStatusMixin],
+        mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
         data() {
             return {
                 category_id: null,
@@ -67,6 +68,9 @@
         mounted() {
 
             if (this.datatable) {
+                this.btnDataTableCreate(this.datatable, () => {
+                    this.$bvModal.show('category_modal');
+                });
                 document.getElementById(this.datatable).addEventListener('click', ({target}) => {
                     let {change_status, edit} = target.dataset;
                     this.get(edit);
