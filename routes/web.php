@@ -49,6 +49,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/', 'DiscountController@store')->name('store');
             Route::get('/{id}/edit', 'DiscountController@edit')->name('edit');
         });
+
+        Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+            Route::get('/product-search', 'ProductController@productSearch')->name('search');
+            Route::group(['prefix' => 'skus', 'as' => 'skus.'], function () {
+                Route::get('/skus-search', 'SkusController@sKusSearch')->name('search');
+            });
+        });
+
     });
 
     //Setting

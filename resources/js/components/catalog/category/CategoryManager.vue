@@ -117,8 +117,8 @@
                     url: form.dataset.action,
                     method: form.dataset.method,
                     appends: {
-                        category_id: this.content.category?.code,
-                        department_id: this.content.department?.code
+                        category_id: this.content.select.category?.code,
+                        department_id: this.content.select.department?.code
                     },
                     data: new FormData(form),
                     onSuccess: () => {

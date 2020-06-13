@@ -20,6 +20,9 @@ class CreateDiscountsTable extends Migration
             $table->date('date_start');
             $table->date('date_finish');
             $table->integer('priority');
+            $table->integer('quantity')->nullable();
+            $table->decimal('minimum_order_value', 8, 2)->nullable();
+            $table->decimal('maximum_discount_amount', 8, 2)->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
             $table->enum('type', ['A', 'P'])->comment('A: Absolute, P: Percente');

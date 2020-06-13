@@ -23,7 +23,7 @@ class SearchDepartmentService implements SearchInterface
             $statusId = StatusService::get('general', 'A')->id;
             $query = Department::query()->where('status_id', $statusId);
             if ($request->search) {
-                $query = $query->where('name', 'like', "%{$request->search}%");
+                $query = $query->where('name', 'ilike', "%{$request->search}%");
             }
             return response()->json(DepartmentSearchResource::collection($query->limit(10)->get()));
         } catch (Exception $exception) {

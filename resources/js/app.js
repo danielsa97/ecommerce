@@ -3,9 +3,19 @@ require('./js-routes');
 import Vue from 'vue';
 import VueIziToast from 'vue-izitoast';
 import vSelect from 'vue-select'
-
+import money from 'v-money'
+Vue.use(money)
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask)
 import {BootstrapVue} from 'bootstrap-vue';
+import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
+import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 
+import VueFormWizard from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+Vue.use(VueFormWizard)
+
+Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 Vue.use(BootstrapVue);
 Vue.use(VueIziToast, {
     resetOnHover: true,

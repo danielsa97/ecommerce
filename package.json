@@ -26,8 +26,16 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@livelybone/vue-datepicker": "^4.0.1",
         "datatables.net-bs4": "^1.10.20",
         "datatables.net-buttons-bs": "^1.6.2",
-        "vue-select": "^3.10.3"
+        "moment": "^2.26.0",
+        "v-money": "^0.8.1",
+        "vue-ctk-date-time-picker": "^2.4.0",
+        "vue-form-wizard": "^0.8.4",
+        "vue-numeric": "^2.3.0",
+        "vue-select": "^3.10.3",
+        "vue-the-mask": "^0.11.1",
+        "vue-vanilla-datetime-picker": "^1.1.15"
     }
 }
