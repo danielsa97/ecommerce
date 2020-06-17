@@ -35,6 +35,7 @@
         "vue-form-wizard": "^0.8.4",
         "vue-numeric": "^2.3.0",
         "vue-select": "^3.10.3",
+        "vue-select-sides": "^1.1.2",
         "vue-the-mask": "^0.11.1",
         "vue-vanilla-datetime-picker": "^1.1.15"
     }

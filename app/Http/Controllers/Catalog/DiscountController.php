@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Catalog;
 
 use App\DataTables\Catalog\DiscountDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DiscountRequest;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -28,9 +29,9 @@ class DiscountController extends Controller
 
     }
 
-    public static function store()
+    public static function store(DiscountRequest $request)
     {
-
+        dd($request->all());
     }
 
     public static function edit(int $id)

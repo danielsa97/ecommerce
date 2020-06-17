@@ -15,6 +15,12 @@ import VueFormWizard from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 Vue.use(VueFormWizard)
 
+import VueSelectSides from "vue-select-sides";
+Vue.use(VueSelectSides, {
+    locale: "pt_BR"
+});
+Vue.component("vue-select-sides", VueSelectSides);
+
 Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 Vue.use(BootstrapVue);
 Vue.use(VueIziToast, {

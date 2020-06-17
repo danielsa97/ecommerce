@@ -15,12 +15,14 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
             $table->decimal('value', 8, 2);
             $table->string('voucher')->nullable();
             $table->date('date_start');
             $table->date('date_finish');
-            $table->integer('priority');
-            $table->integer('quantity')->nullable();
+            $table->integer('quantity_minimum')->nullable();
+            $table->integer('quantity_maximum')->nullable();
             $table->decimal('minimum_order_value', 8, 2)->nullable();
             $table->decimal('maximum_discount_amount', 8, 2)->nullable();
             $table->unsignedBigInteger('status_id');

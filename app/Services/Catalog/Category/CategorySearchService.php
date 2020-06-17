@@ -22,12 +22,12 @@ class CategorySearchService implements SearchInterface
             $statusId = StatusService::get('general', 'A')->id;
             $query = Category::query()->where('status_id', $statusId);
             if ($request->search) {
-                $query = $query->where('name', 'like', "%{$request->search}%");
+                $query = $query->whereRaw('lower(name) like (?)',["%{$request->search}%"])
+                ->orWhereRaw('upper(name) like (?)',["%{$request->search}%"]);
             }
             if ($request->category_id) {
                 $query = $query->where('id', '!=', $request->category_id);
             }
-//            dd(CategorySearchResource::collection($query->limit(10)->get()));
             return response()->json(CategorySearchResource::collection($query->limit(10)->get()));
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([

@@ -4,34 +4,49 @@
     id="discount_modal"
     title="Gerenciar Descontos"
     @hidden="formReset"
-    @ok.prevent="save"
-    ok-title="Salvar"
-    ok-only
+    @show="showModal"
+    hide-footer
+    static
   >
     <form ref="discount_form" data-action="/catalog/discount" data-method="post">
-      <form-wizard color="#343a40" @on-complete="save">
+      <form-wizard
+        finishButtonText='Finalizar'
+        backButtonText='Voltar'
+        nextButtonText='Proxímo'
+        subtitle=''
+        title=''
+        ref="wizard"
+        :start-index="0"
+        color="#343a40"
+        @on-complete="save">
         <tab-content title="Dados Iniciais">
-          <form-group label="Voucher" :required="true">
+          <form-group label="Nome" :required="true">
+            <b-form-input name="name" :value="content.name" />
+          </form-group>
+          <form-group label="Voucher">
             <b-form-input name="voucher" :value="content.voucher" />
           </form-group>
-          <form-group label="Tipo">
+          <form-group label="Tipo" :required="true">
             <b-form-select name="type" v-model="content.type" :options="types"></b-form-select>
           </form-group>
           <form-group label="Valor" :required="true">
             <money name="value" class="form-control" v-model="content.value" v-bind="valueMoney"></money>
           </form-group>
+          <form-group label="Descrição">
+            <b-form-textarea name="description" :value="content.description" />
+          </form-group>
         </tab-content>
         <tab-content title="Periodo">
           <form-group label="Data Inicial" :required="true">
             <VueCtkDateTimePicker
-              label="Selecione a Data e Hora"
-              name="date_start"
-              v-model="content.date_start"
+               format="YYYY-MM-DD HH:mm"
+                v-model="content.date_start"
+                label="Selecione a Data e Hora"
             />
           </form-group>
           <form-group label="Data Final" :required="true">
             <VueCtkDateTimePicker
-              name="date_finish"
+              format="YYYY-MM-DD HH:mm"
               v-model="content.date_finish"
               label="Selecione a Data e Hora"
             />
@@ -54,8 +69,21 @@
               v-bind="money"
             ></money>
           </form-group>
-          <form-group label="Prioridade" :required="true">
-            <the-mask class="form-control" :mask="['###']" />
+          <form-group label="Quantidade Mínima na Compa">
+            <the-mask
+              name="quantity_minimum"
+              v-model="content.quantity_minimum"
+              class="form-control"
+              :mask="['####']"
+            />
+          </form-group>
+          <form-group label="Quantidade Máxima na Compra">
+            <the-mask
+              name="quantity_maximum"
+              v-model="content.quantity_maximum"
+              class="form-control"
+              :mask="['####']"
+            />
           </form-group>
         </tab-content>
         <tab-content>
@@ -66,6 +94,22 @@
               :options="options.category"
               @search="categorySearch"
             />
+          </form-group>
+          <form-group label="Produtos/Skus">
+            <div class="ex-lib">
+              <vue-select-sides
+                placeholder-search-right="Skus"
+                placeholder-search-left="Produtos"
+                type="grouped"
+                order-by="asc"
+                v-model="selected"
+                :list="list"
+                :sort-selected-up="sortSelectedUp"
+                :search="true"
+                :total="true"
+                :toggle-all="true"
+              ></vue-select-sides>
+            </div>
           </form-group>
         </tab-content>
       </form-wizard>
@@ -89,6 +133,7 @@ export default {
   mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
   data() {
     return {
+      sortSelectedUp: true,
       product_id: null,
       category_id: null,
       content: {
@@ -118,7 +163,30 @@ export default {
       ],
       options: {
         category: []
-      }
+      },
+      selected: {},
+      list: [
+        {
+          value: "sul",
+          label: "Sul",
+          children: [
+            {
+              value: "santa-catarina",
+              label: "Santa Catarina"
+            }
+          ]
+        },
+        {
+          value: "sudeste",
+          label: "Sudeste",
+          children: [
+            {
+              value: "minas-gerais",
+              label: "Minas Gerais"
+            }
+          ]
+        }
+      ]
     };
   },
   mounted() {
@@ -142,6 +210,10 @@ export default {
   methods: {
     formReset() {
       this.content = {};
+      this.$refs.wizard.reset();
+    },
+    showModal() {
+      this.$refs.wizard.reset();
     },
     get(id = undefined) {
       if (id) {
@@ -166,7 +238,9 @@ export default {
         url: form.dataset.action,
         method: form.dataset.method,
         appends: {
-          category_id: this.content.select.category?.code
+          category_id: this.content.select.category?.code,
+          date_start: this.content.date_start ?? null,
+          date_finish: this.content.date_finish ?? null
         },
         data: new FormData(form),
         onSuccess: () => {
@@ -183,17 +257,6 @@ export default {
           }
         }
       });
-    },
-    async productSearch(search, loading) {
-      loading(true);
-      let { data } = await axios.post(
-        route("catalog.product.search") + `?search=${search}`,
-        {
-          product_id: this.product_id
-        }
-      );
-      this.options.category = data;
-      loading(false);
     },
     async categorySearch(search, loading) {
       loading(true);
