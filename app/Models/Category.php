@@ -13,7 +13,7 @@ class Category extends Model
         return $this->belongsTo(Status::class, 'status_id', 'id')->where('type', 'general');
     }
 
-    public function parent()
+    public function category()
     {
         return $this->belongsTo(self::class, 'category_id');
     }

@@ -30,7 +30,6 @@ class SkuSearchService implements SearchInterface
             return response()->json(CategorySearchResource::collection($query->limit(10)->get()));
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => $exception->getMessage(),
             ], 500));
         }

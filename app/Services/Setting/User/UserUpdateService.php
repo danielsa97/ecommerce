@@ -28,7 +28,6 @@ class UserUpdateService extends UserService implements UpdateInterface
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => "Falha na atualização do usuário",
             ], 500));
         }

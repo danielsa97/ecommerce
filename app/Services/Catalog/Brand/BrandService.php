@@ -23,7 +23,6 @@ abstract class BrandService implements BrandInterface
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => $exception->getMessage(),
             ], $exception->getCode()));
         }

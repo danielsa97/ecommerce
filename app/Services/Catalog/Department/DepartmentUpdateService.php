@@ -28,7 +28,6 @@ class DepartmentUpdateService extends DepartmentService implements UpdateInterfa
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => "Falha na atualização do departamento",
             ], 500));
         }

@@ -4,7 +4,6 @@
 namespace App\Services\Catalog\Department;
 
 
-use App\Http\Resources\Catalog\Department\DepartmentSearchResource;
 use App\Models\Department;
 use App\Services\SearchInterface;
 use App\Services\StatusService;
@@ -28,7 +27,6 @@ class DepartmentSearchService implements SearchInterface
             return response()->json($query->select('id as code', 'name as label')->limit(10)->get());
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => $exception->getMessage(),
             ], 500));
         }

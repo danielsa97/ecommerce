@@ -28,7 +28,6 @@ class CategoryUpdateService extends CategoryService implements UpdateInterface
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => "Falha na atualização da categoria",
             ], 500));
         }

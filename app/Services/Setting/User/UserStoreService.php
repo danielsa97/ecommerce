@@ -27,7 +27,6 @@ class UserStoreService implements StoreInterface
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => "Falha no cadastro de usuário",
             ], 500));
         }
