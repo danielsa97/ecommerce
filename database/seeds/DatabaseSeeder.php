@@ -15,7 +15,13 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             ProfileTableSeeder::class,
             UserSeeder::class,
-            CustomerSeeder::class
         ]);
+
+        //Fake Seeders
+        if (env('APP_ENV') === 'local') {
+            $this->call([
+                CustomerSeeder::class,
+            ]);
+        }
     }
 }

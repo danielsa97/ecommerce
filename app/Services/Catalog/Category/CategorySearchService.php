@@ -21,17 +21,15 @@ class CategorySearchService implements SearchInterface
         try {
             $statusId = StatusService::get('general', 'A')->id;
             $query = Category::query()->where('status_id', $statusId);
-            if ($request->search) {
-                $query = $query->whereRaw('lower(name) like (?)',["%{$request->search}%"])
-                ->orWhereRaw('upper(name) like (?)',["%{$request->search}%"]);
+            if ($src = mb_strtolower($request->search)) {
+                $query = $query->whereRaw('lower(name) like (?)', ["%$src%"]);
             }
             if ($request->category_id) {
                 $query = $query->where('id', '!=', $request->category_id);
             }
-            return response()->json(CategorySearchResource::collection($query->limit(10)->get()));
+            return response()->json($query->select('id as code', 'name as label')->limit(10)->get());
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
-                "success" => false,
                 "message" => $exception->getMessage(),
             ], 500));
         }

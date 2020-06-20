@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Services\Catalog\Department\DepartmentChangeStatusService;
 use App\Services\Catalog\Department\DepartmentEditService;
+use App\Services\Catalog\Department\DepartmentSearchService;
 use App\Services\Catalog\Department\DepartmentStoreService;
 use App\Services\Catalog\Department\DepartmentUpdateService;
-use App\Services\Catalog\Department\SearchDepartmentService;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -57,6 +57,6 @@ class DepartmentController extends Controller
 
     public function departmentSearch(Request $request)
     {
-        return SearchDepartmentService::search($request);
+        return DepartmentSearchService::search($request);
     }
 }

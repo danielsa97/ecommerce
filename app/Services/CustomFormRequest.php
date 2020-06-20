@@ -19,7 +19,6 @@ class CustomFormRequest extends FormRequest
             }
         }
         $response = [
-            "success" => false,
             "message" => "Dados inválidos.",
             "errors" => $errors,
         ];

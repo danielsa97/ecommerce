@@ -1,4 +1,4 @@
-const ChangeStatusMixin = {
+export default {
     methods: {
         changeStatus(id, url, datatableId = null, data = {}) {
             if (id) {
@@ -31,4 +31,3 @@ const ChangeStatusMixin = {
         }
     }
 };
-export default ChangeStatusMixin;

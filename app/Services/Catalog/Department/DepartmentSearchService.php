@@ -14,7 +14,7 @@ use Mockery\Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 
-class SearchDepartmentService implements SearchInterface
+class DepartmentSearchService implements SearchInterface
 {
     public static function search(Request &$request): JsonResponse
     {
@@ -22,10 +22,10 @@ class SearchDepartmentService implements SearchInterface
 
             $statusId = StatusService::get('general', 'A')->id;
             $query = Department::query()->where('status_id', $statusId);
-            if ($request->search) {
-                $query = $query->where('name', 'ilike', "%{$request->search}%");
+            if ($src = mb_strtolower($request->search)) {
+                $query = $query->whereRaw('lower(name) like (?)', ["%$src%"]);
             }
-            return response()->json(DepartmentSearchResource::collection($query->limit(10)->get()));
+            return response()->json($query->select('id as code', 'name as label')->limit(10)->get());
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
                 "success" => false,
