@@ -22,7 +22,7 @@ class BrandUpdateService extends BrandService implements UpdateInterface
     {
         try {
             $brand = self::find($id);
-            $brand->update(array_filter($request));
+            $brand->update($request);
             $brand->save();
             return new JsonResponse($brand);
         } catch (Exception $exception) {

@@ -16,18 +16,18 @@ use Mockery\Exception;
 class CategorySearchService implements SearchInterface
 {
 
-    public static function search(Request &$request): JsonResponse
+    public static function search(Request &$request, $search): JsonResponse
     {
         try {
             $statusId = StatusService::get('general', 'A')->id;
-            $query = Category::query()->where('status_id', $statusId);
-            if ($src = mb_strtolower($request->search)) {
-                $query = $query->whereRaw('lower(name) like (?)', ["%$src%"]);
+            $query = Category::query()
+                ->where('status_id', $statusId)
+                ->where('id', '!=', $request->category_id);
+            if ($search = mb_strtolower($search)) {
+                $query = $query->whereRaw('lower(name) like (?)', ["%$search%"]);
             }
-            if ($request->category_id) {
-                $query = $query->where('id', '!=', $request->category_id);
-            }
-            return response()->json($query->select('id as code', 'name as label')->limit(10)->get());
+
+            return response()->json(CategorySearchResource::collection($query->limit(10)->get()));
         } catch (Exception $exception) {
             throw  new HttpResponseException(response()->json([
                 "message" => $exception->getMessage(),

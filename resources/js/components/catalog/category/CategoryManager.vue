@@ -16,7 +16,7 @@
                 <form-group label="Departamento" name="department_id" :required="true">
                     <b-row>
                         <b-col cols="10">
-                            <v-select v-model="content.select.department"
+                            <v-select v-model="content.department"
                                       :options="options.department"
                                       @search="departmentSearch"/>
                         </b-col>
@@ -28,7 +28,7 @@
                     </b-row>
                 </form-group>
                 <form-group label="Categoria Pai">
-                    <v-select v-model="content.select.category"
+                    <v-select v-model="content.category"
                               :options="options.category"
                               @search="categorySearch"/>
                 </form-group>
@@ -54,9 +54,9 @@
         mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
         data() {
             return {
-                category_id: null,
                 content: {
-                    select: {},
+                    category: {},
+                    department: {}
                 },
                 options: {
                     category: [],
@@ -78,19 +78,28 @@
             }
         },
         methods: {
-            async categorySearch(search, loading) {
+            categorySearch(search = null, loading) {
                 loading(true);
-                let {data} = await axios.post(route('catalog.category.search') + `?search=${search}`, {
-                    category_id: this.category_id
+                axios({
+                    method:'post',
+                    url: route('catalog.category.search', {search: search}),
+                    data: {
+                        category_id: this.content.id
+                    }
+                }).then(({data}) => {
+                    this.options.category = data;
+                    loading(false);
                 });
-                this.options.category = data;
-                loading(false);
+
             },
-            async departmentSearch(search, loading) {
+            departmentSearch(search = null, loading) {
                 loading(true);
-                let {data} = await axios.get(route('catalog.department.search') + `?search=${search}`);
-                this.options.department = data;
-                loading(false);
+                axios.get(route('catalog.department.search', {search: search}))
+                    .then(({data}) => {
+                        this.options.department = data;
+                        loading(false);
+                    });
+
             },
             reset() {
                 Object.assign(this.$data, this.$options.data.apply(this));
@@ -99,12 +108,11 @@
                 if (id) {
                     this.request({
                         method: 'get',
-                        url: `/catalog/category/${id}/edit`,
+                        url: route('catalog.category.edit', {id: id}),
                         onSuccess: async ({data}) => {
                             this.content = data;
-                            this.category_id = id;
                             await this.$bvModal.show('category_modal');
-                            this.$refs['category_form'].dataset.action = `/catalog/category/${id}`;
+                            this.$refs['category_form'].dataset.action = route('catalog.category.update', {id: id});
                             this.$refs['category_form'].dataset.method = 'put';
                         },
                         toastAlert: false
@@ -117,8 +125,8 @@
                     url: form.dataset.action,
                     method: form.dataset.method,
                     appends: {
-                        category_id: this.content.select.category?.code,
-                        department_id: this.content.select.department?.code
+                        category_id: this.content?.category?.code,
+                        department_id: this.content?.department?.code
                     },
                     data: new FormData(form),
                     onSuccess: () => {

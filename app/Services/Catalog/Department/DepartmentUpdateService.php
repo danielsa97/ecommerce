@@ -22,7 +22,7 @@ class DepartmentUpdateService extends DepartmentService implements UpdateInterfa
     {
         try {
             $department = self::find($id);
-            $department->update(array_filter($request));
+            $department->update($request);
             $department->save();
             return new JsonResponse($department);
         } catch (Exception $exception) {

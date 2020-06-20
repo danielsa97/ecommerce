@@ -55,8 +55,8 @@ class DepartmentController extends Controller
         return $this->departmentDataTable->ajax();
     }
 
-    public function departmentSearch(Request $request)
+    public function departmentSearch(Request $request, $search = null)
     {
-        return DepartmentSearchService::search($request);
+        return DepartmentSearchService::search($request, $search);
     }
 }

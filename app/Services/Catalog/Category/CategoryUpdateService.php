@@ -22,7 +22,7 @@ class CategoryUpdateService extends CategoryService implements UpdateInterface
     {
         try {
             $category = self::find($id);
-            $category->update(array_filter($request));
+            $category->update($request);
             $category->save();
             return new JsonResponse($category);
         } catch (Exception $exception) {
