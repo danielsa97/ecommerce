@@ -78,28 +78,19 @@
             }
         },
         methods: {
-            categorySearch(search = null, loading) {
+            async categorySearch(search = null, loading) {
                 loading(true);
-                axios({
-                    method:'post',
-                    url: route('catalog.category.search', {search: search}),
-                    data: {
-                        category_id: this.content.id
-                    }
-                }).then(({data}) => {
-                    this.options.category = data;
-                    loading(false);
+                let {data} = await axios.post(route('catalog.category.search') + `?search=${search}`, {
+                    category_id: this.content.id
                 });
-
+                this.options.category = data;
+                loading(false);
             },
-            departmentSearch(search = null, loading) {
+            async departmentSearch(search = null, loading) {
                 loading(true);
-                axios.get(route('catalog.department.search', {search: search}))
-                    .then(({data}) => {
-                        this.options.department = data;
-                        loading(false);
-                    });
-
+                let {data} = await axios.get(route('catalog.department.search') + `?search=${search}`);
+                this.options.department = data;
+                loading(false);
             },
             reset() {
                 Object.assign(this.$data, this.$options.data.apply(this));

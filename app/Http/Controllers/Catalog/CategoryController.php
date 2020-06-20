@@ -56,8 +56,8 @@ class CategoryController extends Controller
 
     }
 
-    public function categorySearch(Request $request, $search = null)
+    public function categorySearch(Request $request)
     {
-        return CategorySearchService::search($request, $search);
+        return CategorySearchService::search($request);
     }
 }

@@ -16,14 +16,14 @@ use Mockery\Exception;
 class CategorySearchService implements SearchInterface
 {
 
-    public static function search(Request &$request, $search): JsonResponse
+    public static function search(Request &$request): JsonResponse
     {
         try {
             $statusId = StatusService::get('general', 'A')->id;
             $query = Category::query()
                 ->where('status_id', $statusId)
                 ->where('id', '!=', $request->category_id);
-            if ($search = mb_strtolower($search)) {
+            if ($search = mb_strtolower($request->search)) {
                 $query = $query->whereRaw('lower(name) like (?)', ["%$search%"]);
             }
 

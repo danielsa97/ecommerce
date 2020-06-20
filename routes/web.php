@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('{id}/edit', 'CategoryController@edit')->name('edit');
             Route::put('{id}', 'CategoryController@update')->name('update');
             Route::put('{id}/change-status', 'CategoryController@changeStatus')->name('change-status');
-            Route::post('category-search/{search}', 'CategoryController@categorySearch')->name('search');
+            Route::post('category-search', 'CategoryController@categorySearch')->name('search');
 
         });
 
@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('{id}/edit', 'DepartmentController@edit')->name('edit');
             Route::put('{id}', 'DepartmentController@update')->name('update');
             Route::put('{id}/change-status', 'DepartmentController@changeStatus')->name('change-status');
-            Route::get('department-search/{search?}', 'DepartmentController@departmentSearch')->name('search');
+            Route::get('department-search', 'DepartmentController@departmentSearch')->name('search');
 
         });
 
@@ -65,9 +65,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
             Route::get('/', 'UserController@index')->name('index');
             Route::post('/', 'UserController@store')->name('store');
-            Route::get('/{id}/edit', 'UserController@edit')->name('edit');
-            Route::put('/{id}', 'UserController@update')->name('update');
-            Route::put('/{id}/change-status', 'UserController@changeStatus')->name('change-status');
+            Route::get('{id}/edit', 'UserController@edit')->name('edit');
+            Route::put('{id}', 'UserController@update')->name('update');
+            Route::put('{id}/change-status', 'UserController@changeStatus')->name('change-status');
         });
     });
 

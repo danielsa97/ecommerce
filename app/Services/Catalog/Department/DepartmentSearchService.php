@@ -16,13 +16,13 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class DepartmentSearchService implements SearchInterface
 {
-    public static function search(Request &$request, $search): JsonResponse
+    public static function search(Request &$request): JsonResponse
     {
         try {
 
             $statusId = StatusService::get('general', 'A')->id;
             $query = Department::query()->where('status_id', $statusId);
-            if ($search = mb_strtolower($search)) {
+            if ($search = mb_strtolower($request->search)) {
                 $query = $query->whereRaw('lower(name) like (?)', ["%$search%"]);
             }
             return response()->json(DepartmentSearchResource::collection($query->limit(10)->get()));
