@@ -21,7 +21,7 @@
                                       @search="departmentSearch"/>
                         </b-col>
                         <b-col cols="2">
-                            <b-button variant="primary" v-b-tooltip="'Novo'" block v-b-modal.department_modal>
+                            <b-button variant="primary" v-b-tooltip="'Novo'" size="sm" block v-b-modal.department_modal>
                                 <i class="fa fa-plus"/>
                             </b-button>
                         </b-col>
@@ -54,10 +54,7 @@
         mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
         data() {
             return {
-                content: {
-                    category: {},
-                    department: {}
-                },
+                content: {},
                 options: {
                     category: [],
                     department: []
