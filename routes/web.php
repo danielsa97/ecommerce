@@ -11,7 +11,7 @@ Route::group(['namespace' => 'Auth'], function () {
 
 //ROTAS AUTENTICADAS
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'HomeController@index')->name('home');
 
     //Catalog
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.', 'namespace' => 'Catalog'], function () {

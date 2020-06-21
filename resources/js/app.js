@@ -10,7 +10,10 @@ import {BootstrapVue} from 'bootstrap-vue';
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import VueSelectSides from "vue-select-sides";
 import VueFormWizard from 'vue-form-wizard';
+import VueRouter from 'vue-router';
+import MenuRouter from "./vue-router/MenuRouter";
 
+Vue.use(VueRouter);
 Vue.use(VueFormWizard);
 Vue.use(money);
 Vue.use(VueTheMask);
@@ -23,6 +26,10 @@ Vue.use(VueIziToast, {
     position: 'topRight',
 });
 
+const router = new VueRouter({
+    mode: 'history',
+    routes: MenuRouter.toRouter()
+});
 
 //Components
 
@@ -37,7 +44,11 @@ Vue.component('v-select', vSelect);
 Vue.component('form-group', require("./components/FormGroup").default);
 Vue.component("vue-select-sides", VueSelectSides);
 Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
+Vue.component('data-table', require("./components/DataTable").default);
+Vue.component('page', require("./components/Page").default);
+Vue.component('sidebar', require("./components/Sidebar/Sidebar").default);
 
 if (document.getElementById('app')) new Vue({
     el: '#app',
+    router
 });

@@ -5,12 +5,7 @@
 @stop
 
 @section('content')
-    <b-card class="table-responsive">
-        {!! $departmentDataTable->table()!!}
+    <b-card>
+        <department-manager></department-manager>
     </b-card>
-    <department-manager datatable="department_datatable"></department-manager>
-@stop
-
-@section('js')
-    {{ $departmentDataTable->scripts()}}
 @stop

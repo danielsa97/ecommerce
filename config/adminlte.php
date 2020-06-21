@@ -15,23 +15,7 @@ return [
     */
 
     'title' => env('APP_NAME'),
-    'title_prefix' => '',
-    'title_postfix' => '',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Favicon
-    |--------------------------------------------------------------------------
-    |
-    | Here you can activate the favicon.
-    |
-    | For more detailed instructions you can look here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/#62-favicon
-    |
-    */
-
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +48,7 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
@@ -82,7 +66,6 @@ return [
     |
     */
 
-    'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
     'layout_fixed_navbar' => null,
@@ -145,7 +128,6 @@ return [
     |
     */
 
-    'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
     'right_sidebar_theme' => 'dark',
     'right_sidebar_slide' => true,
@@ -155,7 +137,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | URLs
+    | s
     |--------------------------------------------------------------------------
     |
     | Here we can modify the url settings of the admin panel.
@@ -165,21 +147,9 @@ return [
     |
     */
 
-    'use_route_url' => false,
-
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
 
     'logout_url' => 'logout',
-
-    'login_url' => 'login',
-
-    'register_url' => 'register',
-
-    'password_reset_url' => 'password/reset',
-
-    'password_email_url' => 'password/email',
-
-    'profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -210,7 +180,7 @@ return [
     'menu' => [
         [
             'text' => 'Inicio',
-            'url' => '/home',
+            'url' => '/dashboard',
             'icon' => 'fas fa-tachometer-alt',
         ],
         [
@@ -229,11 +199,9 @@ return [
                 [
                     'text' => 'Departamentos',
                     'url' => '/catalog/department'
-
                 ],
                 [
                     'text' => 'Categorias',
-                    'url' => '/catalog/category'
                 ],
                 [
                     'text' => 'Produtos',
@@ -241,11 +209,9 @@ return [
                 ],
                 [
                     'text' => 'Marcas',
-                    'url' => '/catalog/brand'
                 ],
                 [
                     'text' => 'Descontos',
-                    'url' => '/catalog/discount'
                 ],
             ]
         ],
@@ -261,7 +227,6 @@ return [
                 [
                     'text' => 'Usuários',
                     'icon' => 'fa fa-user',
-                    'url' => '/setting/user'
                 ]
             ]
         ]
@@ -280,7 +245,6 @@ return [
     */
 
     'filters' => [
-        JeroenNoten\LaravelAdminLte\Menu\Filters\HrefFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SearchFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\ActiveFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\SubmenuFilter::class,
@@ -289,17 +253,5 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Plugins Initialization
-    |--------------------------------------------------------------------------
-    |
-    | Here we can modify the plugins used inside the admin panel.
-    |
-    | For more detailed instructions you can look here:
-    | https://github.com/jeroennoten/Laravel-AdminLTE/#613-plugins
-    |
-    */
 
-    'plugins' => [],
 ];

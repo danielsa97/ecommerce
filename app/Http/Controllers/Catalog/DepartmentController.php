@@ -12,6 +12,7 @@ use App\Services\Catalog\Department\DepartmentEditService;
 use App\Services\Catalog\Department\DepartmentSearchService;
 use App\Services\Catalog\Department\DepartmentStoreService;
 use App\Services\Catalog\Department\DepartmentUpdateService;
+use App\Services\DataTableService;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -25,9 +26,7 @@ class DepartmentController extends Controller
 
     public function index()
     {
-        return view('catalog.department.index', [
-            'departmentDataTable' => $this->departmentDataTable->html()
-        ]);
+        return view('catalog.department.index');
     }
 
     public function store(DepartmentRequest $request)
@@ -52,7 +51,7 @@ class DepartmentController extends Controller
 
     public function departmentDatatableAjax()
     {
-        return $this->departmentDataTable->ajax();
+        return DataTableService::make($this->departmentDataTable);
     }
 
     public function departmentSearch(Request $request)
