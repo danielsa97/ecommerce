@@ -1,147 +1,136 @@
 <template>
-    <b-modal
-        size="xl"
-        id="discount_modal"
-        title="Gerenciar Descontos"
-        @hidden="formReset"
-        @show="showModal"
-        hide-footer
-        static>
-        <form ref="discount_form" data-action="/catalog/discount" data-method="post">
-            <form-wizard
-                finishButtonText='Finalizar'
-                backButtonText='Voltar'
-                nextButtonText='Proxímo'
-                subtitle=''
-                title=''
-                ref="wizard"
-                :start-index="0"
-                color="#343a40"
-                @on-complete="save">
-                <tab-content title="Dados Iniciais">
-                    <form-group label="Nome" :required="true">
-                        <b-form-input name="name" :value="content.name"/>
-                    </form-group>
-                    <form-group label="Voucher">
-                        <b-form-input name="voucher" :value="content.voucher"/>
-                    </form-group>
-                    <form-group label="Tipo" :required="true">
-                        <b-form-select name="type" v-model="content.type" :options="types"/>
-                    </form-group>
-                    <form-group label="Valor" :required="true">
-                        <money name="value" class="form-control" v-model="content.value" v-bind="valueMoney"/>
-                    </form-group>
-                    <form-group label="Descrição">
-                        <b-form-textarea name="description" :value="content.description"/>
-                    </form-group>
-                </tab-content>
-                <tab-content title="Periodo">
-                    <form-group label="Data Inicial" :required="true">
-                        <VueCtkDateTimePicker
-                            format="YYYY-MM-DD HH:mm"
-                            v-model="content.date_start"
-                            label="Selecione a Data e Hora"
-                        />
-                    </form-group>
-                    <form-group label="Data Final" :required="true">
-                        <VueCtkDateTimePicker
-                            format="YYYY-MM-DD HH:mm"
-                            v-model="content.date_finish"
-                            label="Selecione a Data e Hora"
-                        />
-                    </form-group>
-                </tab-content>
-                <tab-content title="Regras">
-                    <form-group label="Valor Mínimo na Compra" :required="true">
-                        <money
-                            name="minimum_order_value"
-                            class="form-control"
-                            v-model="content.minimum_order_value"
-                            v-bind="money"/>
-                    </form-group>
-                    <form-group label="Valor Maxímo na Compra" :required="true">
-                        <money
-                            name="maximum_discount_amount"
-                            class="form-control"
-                            v-model="content.maximum_discount_amount"
-                            v-bind="money"/>
-                    </form-group>
-                    <form-group label="Quantidade Mínima na Compa">
-                        <the-mask
-                            name="quantity_minimum"
-                            v-model="content.quantity_minimum"
-                            class="form-control"
-                            :mask="['####']"
-                        />
-                    </form-group>
-                    <form-group label="Quantidade Máxima na Compra">
-                        <the-mask
-                            name="quantity_maximum"
-                            v-model="content.quantity_maximum"
-                            class="form-control"
-                            :mask="['####']"
-                        />
-                    </form-group>
-                </tab-content>
-                <tab-content>
-                    <form-group label="Categorias">
-                        <b-row>
-                            <b-col cols="10" md="11">
-                                <v-select
-                                    multiple
-                                    v-model="content.select.category"
-                                    :options="options.category"
-                                    @search="categorySearch"
-                                />
-                            </b-col>
-                            <b-col cols="2" md="1">
-                                <b-button variant="primary" v-b-tooltip="'Novo'"
-                                          size="sm" block
-                                          v-b-modal.category_modal>
-                                    <i class="fa fa-plus"/>
-                                </b-button>
-                            </b-col>
-                        </b-row>
-                    </form-group>
-                    <form-group label="Produtos/Skus">
-                        <div class="ex-lib">
-                            <vue-select-sides
-                                placeholder-search-right="Skus"
-                                placeholder-search-left="Produtos"
-                                type="grouped"
-                                order-by="asc"
-                                v-model="selected"
-                                :list="list"
-                                :sort-selected-up="sortSelectedUp"
-                                :search="true"
-                                :total="true"
-                                :toggle-all="true"
-                            ></vue-select-sides>
-                        </div>
-                    </form-group>
-                </tab-content>
-            </form-wizard>
-        </form>
-        <category-manager/>
-    </b-modal>
+    <page title="Descontos" descripition="Gerencie os descontos da loja">
+        <b-modal
+            size="xl"
+            id="discount_modal"
+            title="Gerenciar Descontos"
+            @hidden="formReset"
+            @show="showModal"
+            hide-footer
+            static>
+            <form ref="discount_form" data-action="/catalog/discount" data-method="post">
+                <form-wizard
+                    finishButtonText='Finalizar'
+                    backButtonText='Voltar'
+                    nextButtonText='Proxímo'
+                    subtitle=''
+                    title=''
+                    ref="wizard"
+                    :start-index="0"
+                    color="#343a40"
+                    @on-complete="save">
+                    <tab-content title="Dados Iniciais">
+                        <form-group label="Nome" :required="true">
+                            <b-form-input name="name" :value="content.name"/>
+                        </form-group>
+                        <form-group label="Voucher">
+                            <b-form-input name="voucher" :value="content.voucher"/>
+                        </form-group>
+                        <form-group label="Tipo" :required="true">
+                            <b-form-select name="type" v-model="content.type" :options="types"/>
+                        </form-group>
+                        <form-group label="Valor" :required="true">
+                            <money name="value" class="form-control" v-model="content.value" v-bind="valueMoney"/>
+                        </form-group>
+                        <form-group label="Descrição">
+                            <b-form-textarea name="description" :value="content.description"/>
+                        </form-group>
+                    </tab-content>
+                    <tab-content title="Periodo">
+                        <form-group label="Data Inicial" :required="true">
+                            <VueCtkDateTimePicker
+                                format="YYYY-MM-DD HH:mm"
+                                v-model="content.date_start"
+                                label="Selecione a Data e Hora"
+                            />
+                        </form-group>
+                        <form-group label="Data Final" :required="true">
+                            <VueCtkDateTimePicker
+                                format="YYYY-MM-DD HH:mm"
+                                v-model="content.date_finish"
+                                label="Selecione a Data e Hora"
+                            />
+                        </form-group>
+                    </tab-content>
+                    <tab-content title="Regras">
+                        <form-group label="Valor Mínimo na Compra" :required="true">
+                            <money
+                                name="minimum_order_value"
+                                class="form-control"
+                                v-model="content.minimum_order_value"
+                                v-bind="money"/>
+                        </form-group>
+                        <form-group label="Valor Maxímo na Compra" :required="true">
+                            <money
+                                name="maximum_discount_amount"
+                                class="form-control"
+                                v-model="content.maximum_discount_amount"
+                                v-bind="money"/>
+                        </form-group>
+                        <form-group label="Quantidade Mínima na Compa">
+                            <the-mask
+                                name="quantity_minimum"
+                                v-model="content.quantity_minimum"
+                                class="form-control"
+                                :mask="['####']"
+                            />
+                        </form-group>
+                        <form-group label="Quantidade Máxima na Compra">
+                            <the-mask
+                                name="quantity_maximum"
+                                v-model="content.quantity_maximum"
+                                class="form-control"
+                                :mask="['####']"
+                            />
+                        </form-group>
+                    </tab-content>
+                    <tab-content>
+                        <form-group label="Categorias">
+                            <v-select
+                                multiple
+                                v-model="content.select.category"
+                                :options="options.category"
+                                @search="categorySearch"
+                            />
+                        </form-group>
+                        <form-group label="Produtos/Skus">
+                            <div class="ex-lib">
+                                <vue-select-sides
+                                    placeholder-search-right="Skus"
+                                    placeholder-search-left="Produtos"
+                                    type="grouped"
+                                    order-by="asc"
+                                    v-model="selected"
+                                    :list="list"
+                                    :sort-selected-up="sortSelectedUp"
+                                    :search="true"
+                                    :total="true"
+                                    :toggle-all="true"
+                                ></vue-select-sides>
+                            </div>
+                        </form-group>
+                    </tab-content>
+                </form-wizard>
+            </form>
+        </b-modal>
+        <data-table @create="$bvModal.show('discount_modal')"
+                    @edit="edit"
+                    @change-status="changeStatusDiscount"
+                    :id="datatable"
+                    route="datatable.catalog.department"/>
+    </page>
 </template>
 
 <script>
     import FormMixin from "../../../mixins/FormMixin";
     import ChangeStatusMixin from "../../../mixins/ChangeStatusMixin";
-    import DataTableButtonMixin from "../../../mixins/DataTableButtonMixin";
 
     export default {
         name: "DiscountManager",
-        props: {
-            datatable: {
-                type: String,
-                required: false
-            }
-        },
-        mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
+        mixins: [FormMixin, ChangeStatusMixin],
         data() {
             return {
+                datatable: 'discount_datatable',
                 sortSelectedUp: true,
                 product_id: null,
                 category_id: null,
@@ -201,7 +190,7 @@
         mounted() {
             if (this.datatable) {
                 this.btnDataTableCreate(this.datatable, () => {
-                    this.$bvModal.show("discount_modal");
+                    this.$bvModal.show("");
                 });
                 document
                     .getElementById(this.datatable)
@@ -224,7 +213,10 @@
             showModal() {
                 this.$refs.wizard.reset();
             },
-            get(id = undefined) {
+            changeStatusDiscount({id}) {
+                this.changeStatus(route('catalog.discount.change-status', {id: id}), this.datatable);
+            },
+            edit({id}) {
                 if (id) {
                     this.request({
                         method: "get",

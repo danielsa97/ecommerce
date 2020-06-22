@@ -3,6 +3,7 @@ import BrandManager from "../components/catalog/brand/BrandManager";
 import CategoryManager from "../components/catalog/category/CategoryManager";
 import Home from "../components/home/Home";
 import UserManager from "../components/setting/user/UserManager";
+import DiscountManager from "../components/catalog/discount/DiscountManager";
 
 export default [
     {
@@ -44,6 +45,13 @@ export default [
                             label: "Departamentos"
                         },
                         component: DepartmentManager,
+                    },
+                    {
+                        path: 'discount',
+                        menu: {
+                            label: "Descontos"
+                        },
+                        component: DiscountManager,
                     },
                 ]
             },

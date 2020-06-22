@@ -1,10 +1,4 @@
 @extends('adminlte::master')
-
-
-@section('adminlte_css')
-    @stack('css')
-    @yield('css')
-@stop
 @section('body')
     <div class="login-page">
         <div class="login-box ">

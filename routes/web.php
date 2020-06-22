@@ -80,10 +80,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('user', 'UserController@userDatatableAjax')->name('user');
         });
     });
-
+    
     Route::get('/{any?}', function () {
         return view('page');
     })->where('any', '^(?!api\/)[\/\w\.-]*');
+
 
 });
 
