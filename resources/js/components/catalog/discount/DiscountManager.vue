@@ -1,5 +1,5 @@
 <template>
-    <page title="Descontos" descripition="Gerencie os descontos da loja">
+    <page title="Descontos" description="Gerencie os descontos da loja">
         <b-modal
             size="xl"
             id="discount_modal"
@@ -105,8 +105,7 @@
                                     :sort-selected-up="sortSelectedUp"
                                     :search="true"
                                     :total="true"
-                                    :toggle-all="true"
-                                ></vue-select-sides>
+                                    :toggle-all="true"/>
                             </div>
                         </form-group>
                     </tab-content>
@@ -117,7 +116,7 @@
                     @edit="edit"
                     @change-status="changeStatusDiscount"
                     :id="datatable"
-                    route="datatable.catalog.department"/>
+                    route="datatable.catalog.discount"/>
     </page>
 </template>
 
@@ -186,24 +185,6 @@
                     }
                 ]
             };
-        },
-        mounted() {
-            if (this.datatable) {
-                this.btnDataTableCreate(this.datatable, () => {
-                    this.$bvModal.show("");
-                });
-                document
-                    .getElementById(this.datatable)
-                    .addEventListener("click", ({target}) => {
-                        let {change_status, edit} = target.dataset;
-                        this.get(edit);
-                        this.changeStatus(
-                            change_status,
-                            `/catalog/discount/${change_status}/change-status`,
-                            this.datatable
-                        );
-                    });
-            }
         },
         methods: {
             formReset() {

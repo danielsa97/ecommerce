@@ -31,14 +31,14 @@ const router = new VueRouter({
     mode: 'history',
     routes: MenuRouter.toRouter()
 });
-router.beforeEach((to, from, next) => {
-    console.log('aqui')
-    NProgress.start();
-    next();
-});
-router.afterEach(() => {
-    NProgress.done();
-});
+// router.beforeEach((to, from, next) => {
+//     console.log('aqui')
+//     NProgress.start();
+//     next();
+// });
+// router.afterEach(() => {
+//     NProgress.done();
+// });
 
 //Global Components
 Vue.component('v-select', vSelect);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Catalog;
 use App\DataTables\Catalog\DiscountDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DiscountRequest;
+use App\Services\DataTableService;
 use Illuminate\Http\Request;
 
 class DiscountController extends Controller
@@ -16,17 +17,10 @@ class DiscountController extends Controller
         $this->discountDataTable = $discountDataTable;
     }
 
-    public function index()
-    {
-        return view('catalog.discount.index', [
-            'discountDataTable' => $this->discountDataTable->html()
-        ]);
-    }
 
     public function discountDatatableAjax()
     {
-        return $this->discountDataTable->ajax();
-
+        return DataTableService::make($this->discountDataTable);
     }
 
     public static function store(DiscountRequest $request)

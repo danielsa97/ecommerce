@@ -3,6 +3,7 @@
 namespace App\DataTables\Catalog;
 
 use App\Models\Discount;
+use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
@@ -27,8 +28,8 @@ class DiscountDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Discount $model
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Discount $discount
+     * @return Builder
      */
     public function query(Discount $discount)
     {
