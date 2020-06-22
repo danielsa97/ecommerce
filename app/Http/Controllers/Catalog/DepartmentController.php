@@ -24,10 +24,6 @@ class DepartmentController extends Controller
         $this->departmentDataTable = $departmentDataTable;
     }
 
-    public function index()
-    {
-        return view('catalog.department.index');
-    }
 
     public function store(DepartmentRequest $request)
     {

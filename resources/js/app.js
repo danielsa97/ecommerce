@@ -1,5 +1,6 @@
 require('./bootstrap');
 require('./js-routes');
+const NProgress = require('nprogress');
 
 import Vue from 'vue';
 import VueIziToast from 'vue-izitoast';
@@ -30,16 +31,16 @@ const router = new VueRouter({
     mode: 'history',
     routes: MenuRouter.toRouter()
 });
+router.beforeEach((to, from, next) => {
+    console.log('aqui')
+    NProgress.start();
+    next();
+});
+router.afterEach(() => {
+    NProgress.done();
+});
 
-//Components
-
-Vue.component('user-manager', require("./components/setting/user/UserManager").default);
-Vue.component('brand-manager', require("./components/catalog/brand/BrandManager").default);
-Vue.component('department-manager', require("./components/catalog/department/DepartmentManager").default);
-Vue.component('category-manager', require("./components/catalog/category/CategoryManager").default);
-Vue.component('discount-manager', require("./components/catalog/discount/DiscountManager").default);
-
-//General Components
+//Global Components
 Vue.component('v-select', vSelect);
 Vue.component('form-group', require("./components/FormGroup").default);
 Vue.component("vue-select-sides", VueSelectSides);

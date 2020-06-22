@@ -11,7 +11,7 @@ export default [
             {
                 path: '',
                 menu: {
-                    label: "Home",
+                    label: "Início",
                     icon: 'fas fa-tachometer-alt',
                 },
                 component: Home,
@@ -27,21 +27,21 @@ export default [
                     {
                         path: 'brand',
                         menu: {
-                            label: "Marca"
+                            label: "Marcas"
                         },
                         component: BrandManager,
                     },
                     {
                         path: 'category',
                         menu: {
-                            label: "Categoria"
+                            label: "Categorias"
                         },
                         component: CategoryManager,
                     },
                     {
                         path: 'department',
                         menu: {
-                            label: "Departamento"
+                            label: "Departamentos"
                         },
                         component: DepartmentManager,
                     },

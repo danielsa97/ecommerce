@@ -12,6 +12,7 @@ use App\Services\Catalog\Category\CategoryEditService;
 use App\Services\Catalog\Category\CategorySearchService;
 use App\Services\Catalog\Category\CategoryStoreService;
 use App\Services\Catalog\Category\CategoryUpdateService;
+use App\Services\DataTableService;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -21,13 +22,6 @@ class CategoryController extends Controller
     public function __construct(CategoryDataTable $categoryDataTable)
     {
         $this->categoryDataTable = $categoryDataTable;
-    }
-
-    public function index()
-    {
-        return view('catalog.category.index', [
-            'categoryDataTable' => $this->categoryDataTable->html()
-        ]);
     }
 
     public function store(CategoryRequest $request)
@@ -52,7 +46,7 @@ class CategoryController extends Controller
 
     public function categoryDatatableAjax()
     {
-        return $this->categoryDataTable->ajax();
+        return DataTableService::make($this->categoryDataTable);
 
     }
 

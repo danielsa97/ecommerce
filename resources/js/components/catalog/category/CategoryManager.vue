@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <page title="Categorias" description="Gerencie as categorias da loja">
         <b-modal id="category_modal"
                  title="Gerenciar Categoria"
                  @hidden="reset"
@@ -34,44 +34,29 @@
                 </form-group>
             </form>
         </b-modal>
-        <department-manager/>
-    </div>
+        <data-table @create="$bvModal.show('category_modal')"
+                    @edit="edit"
+                    @change-status="changeStatusCategory"
+                    :id="datatable"
+                    route="datatable.catalog.category"/>
+    </page>
 </template>
 
 <script>
     import FormMixin from "../../../mixins/FormMixin";
     import ChangeStatusMixin from "../../../mixins/ChangeStatusMixin";
-    import DataTableButtonMixin from "../../../mixins/DataTableButtonMixin";
 
     export default {
         name: "CategoryManager",
-        props: {
-            datatable: {
-                type: String,
-                required: false
-            }
-        },
-        mixins: [FormMixin, ChangeStatusMixin, DataTableButtonMixin],
+        mixins: [FormMixin, ChangeStatusMixin],
         data() {
             return {
                 content: {},
+                datatable: 'category_datatable',
                 options: {
                     category: [],
                     department: []
                 },
-            }
-        },
-        mounted() {
-
-            if (this.datatable) {
-                this.btnDataTableCreate(this.datatable, () => {
-                    this.$bvModal.show('category_modal');
-                });
-                document.getElementById(this.datatable).addEventListener('click', ({target}) => {
-                    let {change_status, edit} = target.dataset;
-                    this.get(edit);
-                    this.changeStatus(change_status, route('catalog.category.change-status', {id: change_status}), this.datatable);
-                });
             }
         },
         methods: {
@@ -89,10 +74,13 @@
                 this.options.department = data;
                 loading(false);
             },
+            changeStatusCategory({id}) {
+                this.changeStatus(route('catalog.category.change-status', {id: id}), this.datatable);
+            },
             reset() {
                 Object.assign(this.$data, this.$options.data.apply(this));
             },
-            get(id = undefined) {
+            edit({id}) {
                 if (id) {
                     this.request({
                         method: 'get',

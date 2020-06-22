@@ -17,7 +17,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.', 'namespace' => 'Catalog'], function () {
 
         Route::group(['prefix' => 'category', 'as' => 'category.'], function () {
-            Route::get('/', 'CategoryController@index')->name('index');
             Route::post('/', 'CategoryController@store')->name('store');
             Route::get('{id}/edit', 'CategoryController@edit')->name('edit');
             Route::put('{id}', 'CategoryController@update')->name('update');
@@ -27,7 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'department', 'as' => 'department.'], function () {
-            Route::get('/', 'DepartmentController@index')->name('index');
             Route::post('/', 'DepartmentController@store')->name('store');
             Route::get('{id}/edit', 'DepartmentController@edit')->name('edit');
             Route::put('{id}', 'DepartmentController@update')->name('update');
@@ -37,7 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'brand', 'as' => 'brand.'], function () {
-            Route::get('/', 'BrandController@index')->name('index');
             Route::post('/', 'BrandController@store')->name('store');
             Route::get('{id}/edit', 'BrandController@edit')->name('edit');
             Route::put('{id}', 'BrandController@update')->name('update');
@@ -45,7 +42,6 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'discount', 'as' => 'discount.'], function () {
-            Route::get('/', 'DiscountController@index')->name('index');
             Route::post('/', 'DiscountController@store')->name('store');
             Route::get('{id}/edit', 'DiscountController@edit')->name('edit');
         });
@@ -63,7 +59,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'setting', 'as' => 'setting.', 'namespace' => 'Setting'], function () {
 
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
-            Route::get('/', 'UserController@index')->name('index');
             Route::post('/', 'UserController@store')->name('store');
             Route::get('{id}/edit', 'UserController@edit')->name('edit');
             Route::put('{id}', 'UserController@update')->name('update');
@@ -85,5 +80,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('user', 'UserController@userDatatableAjax')->name('user');
         });
     });
+
+    Route::get('/{any?}', function () {
+        return view('page');
+    })->where('any', '^(?!api\/)[\/\w\.-]*');
+
 });
 
