@@ -26,7 +26,7 @@ class UserRequest extends CustomFormRequest
     {
         $rules = [
             'name' => "required",
-            'email' => "required|email|unique:users,email," . $this->id,
+            'email' => "required|email|unique:users,email,{$this->id}",
             'password' => ["confirmed", "nullable", "min:8"]
         ];
 

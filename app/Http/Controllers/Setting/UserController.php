@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Setting;
 use App\DataTables\Setting\UserDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Services\DataTableService;
 use App\Services\Setting\User\UserChangeStatusService;
 use App\Services\Setting\User\UserEditService;
 use App\Services\Setting\User\UserStoreService;
@@ -24,9 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('setting.user.index', [
-            'userDataTable' => $this->userDataTable->html()
-        ]);
+        return DataTableService::make($this->userDataTable);
     }
 
     public function store(UserRequest $request)
@@ -50,8 +49,4 @@ class UserController extends Controller
         return UserChangeStatusService::change($userId);
     }
 
-    public function userDatatableAjax()
-    {
-        return $this->userDataTable->ajax();
-    }
 }

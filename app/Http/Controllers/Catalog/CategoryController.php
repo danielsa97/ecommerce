@@ -24,6 +24,11 @@ class CategoryController extends Controller
         $this->categoryDataTable = $categoryDataTable;
     }
 
+    public function index()
+    {
+        return DataTableService::make($this->categoryDataTable);
+    }
+
     public function store(CategoryRequest $request)
     {
         return CategoryStoreService::store($request->only('name', 'description', 'category_id', 'department_id'));
@@ -44,11 +49,6 @@ class CategoryController extends Controller
         return CategoryChangeStatusService::change($categoryId);
     }
 
-    public function categoryDatatableAjax()
-    {
-        return DataTableService::make($this->categoryDataTable);
-
-    }
 
     public function categorySearch(Request $request)
     {

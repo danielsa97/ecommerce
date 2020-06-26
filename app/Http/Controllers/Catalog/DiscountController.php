@@ -19,7 +19,7 @@ class DiscountController extends Controller
     }
 
 
-    public function discountDatatableAjax()
+    public function index()
     {
         return DataTableService::make($this->discountDataTable);
     }

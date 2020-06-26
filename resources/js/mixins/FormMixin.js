@@ -1,35 +1,34 @@
 const FormMixin = {
     methods: {
-        async request(options = {}) {
-            try {
-                let method = options.method || 'post';
-                options.method = ['post', 'get'].includes(method.toLowerCase()) ? method : 'post';
-                if (options.data instanceof FormData) {
-                    options.data.append('_method', method);
-                    Object.entries(options.appends ?? {}).forEach(item => {
-                        options.data.append(item[0], item[1] ?? '');
-                    });
-                } else {
-                    options.data = Object.assign({_method: method}, options.data);
-                }
-                const response = await axios(options);
-                if (options.toastAlert !== false) {
-                    this.$toast.success(response?.data?.message ?? "Solicitação realizada");
-                }
-                if (options.onSuccess) options.onSuccess(response);
-            } catch (error) {
-                if (options.onError) options.onError(error);
-                if (options.toastAlert !== false) this.$toast.error(error.response.data.message ?? "Falha na solicitação");
-            }
+        reset() {
+            Object.assign(this.$data, this.$options.data.apply(this));
         },
-        showErrors(errors, form = null) {
-            Object.entries(errors).forEach(error => {
-                let legend, errorElement;
-                legend = (form || document).querySelector(`[data-legend=${error[0]}]`);
-                errorElement = (form || document).querySelector(`[data-error=${error[0]}]`);
-                if (legend) legend.classList.add('text-danger');
-                if (errorElement) errorElement.innerHTML = error[1];
+        request(url, options = {}) {
+            let method = (options.method || (options.data instanceof FormData && options?.data?.method ? options.data.method : 'post')).toLowerCase();
+            options = Object.assign({data: {}}, options);
+            options.url = url;
+            options.method = ['post', 'get'].includes(method) ? method : 'post';
+            if (options.data instanceof FormData) options.data.set('_method', method);
+            else options.data._method = method;
+
+            axios(options).then(response => {
+                if (options.toast) this.$toast.success(response.data?.message ?? "Solicitação realizada");
+                if (options.onSuccess) options.onSuccess(response);
+            }).catch(error => {
+                if (options.onError) options.onError(error);
+                if (options.toast) this.$toast.error(error.response.data?.message ?? "Falha na solicitação");
             });
+        },
+        showErrors(error, form = null) {
+            if (error?.response?.status === 422) {
+                Object.entries(error.response.data.errors).forEach(error => {
+                    let legend, errorElement;
+                    legend = (form || document).querySelector(`[data-legend=${error[0]}]`);
+                    errorElement = (form || document).querySelector(`[data-error=${error[0]}]`);
+                    if (legend) legend.classList.add('text-danger');
+                    if (errorElement) errorElement.innerHTML = error[1];
+                });
+            }
         }
     }
 };

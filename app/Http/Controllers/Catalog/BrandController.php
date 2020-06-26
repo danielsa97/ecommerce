@@ -11,6 +11,7 @@ use App\Services\Catalog\Brand\BrandChangeStatusService;
 use App\Services\Catalog\Brand\BrandEditService;
 use App\Services\Catalog\Brand\BrandStoreService;
 use App\Services\Catalog\Brand\BrandUpdateService;
+use App\Services\DataTableService;
 
 class BrandController extends Controller
 {
@@ -23,9 +24,7 @@ class BrandController extends Controller
 
     public function index()
     {
-        return view('catalog.brand.index', [
-            'brandDataTable' => $this->brandDataTable->html()
-        ]);
+        return DataTableService::make($this->brandDataTable);
     }
 
     public function store(BrandRequest $request)
@@ -46,11 +45,5 @@ class BrandController extends Controller
     public function changeStatus(int $brandId)
     {
         return BrandChangeStatusService::change($brandId);
-    }
-
-    public function brandDatatableAjax()
-    {
-        return $this->brandDataTable->ajax();
-
     }
 }

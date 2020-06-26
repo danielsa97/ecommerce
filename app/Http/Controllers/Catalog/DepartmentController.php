@@ -24,6 +24,10 @@ class DepartmentController extends Controller
         $this->departmentDataTable = $departmentDataTable;
     }
 
+    public function index()
+    {
+        return DataTableService::make($this->departmentDataTable);
+    }
 
     public function store(DepartmentRequest $request)
     {
@@ -43,11 +47,6 @@ class DepartmentController extends Controller
     public function changeStatus(int $departmentId)
     {
         return DepartmentChangeStatusService::change($departmentId);
-    }
-
-    public function departmentDatatableAjax()
-    {
-        return DataTableService::make($this->departmentDataTable);
     }
 
     public function departmentSearch(Request $request)

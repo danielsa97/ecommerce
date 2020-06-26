@@ -16,8 +16,8 @@ class UserDataTable extends DataTable
                     <div class='dropdown'>
                       <button class='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'>Ações</button>
                       <div class='dropdown-menu'>
-                        <button class='dropdown-item' data-edit='{$query->id}'>Editar</button>
-                        <button class='dropdown-item' data-change_status='{$query->id}'>Alterar Status</button>
+                        <button class='dropdown-item' data-emit='edit' data-id='{$query->id}'>Editar</button>
+                        <button class='dropdown-item' data-emit='change-status' data-id='{$query->id}'>Alterar Status</button>
                       </div>
                     </div>";
             })
@@ -38,7 +38,6 @@ class UserDataTable extends DataTable
         return $this->builder()
             ->setTableId('user_datatable')
             ->columns($this->getColumns())
-            ->ajax(['url' => route('datatable.setting.user')])
             ->parameters($this->getBuilderParameters());
     }
 

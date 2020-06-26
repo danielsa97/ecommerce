@@ -24,8 +24,8 @@ class CategoryDataTable extends DataTable
                     <div class='dropdown'>
                       <button class='btn btn-sm btn-primary dropdown-toggle' data-toggle='dropdown'>Ações</button>
                       <div class='dropdown-menu'>
-                        <button class='dropdown-item' data-edit='{$query->id}'>Editar</button>
-                        <button class='dropdown-item' data-change_status='{$query->id}'>Alterar Status</button>
+                        <button class='dropdown-item' data-emit='edit' data-id='{$query->id}'>Editar</button>
+                        <button class='dropdown-item' data-emit='change-status' data-id='{$query->id}'>Alterar Status</button>
                       </div>
                     </div>";
             })
@@ -40,7 +40,7 @@ class CategoryDataTable extends DataTable
             ->join('status', 'categories.status_id', 'status.id')
             ->leftJoin('categories as parent', 'categories.category_id', 'parent.id')
             ->join('departments', 'categories.department_id', 'departments.id')
-            ->select('departments.name as department','categories.id','parent.name as parent_category', 'categories.name', 'categories.description', 'status.description as status');
+            ->select('departments.name as department', 'categories.id', 'parent.name as parent_category', 'categories.name', 'categories.description', 'status.description as status');
     }
 
     public function html()
@@ -48,7 +48,6 @@ class CategoryDataTable extends DataTable
         return $this->builder()
             ->setTableId('category_datatable')
             ->columns($this->getColumns())
-            ->ajax(['url' => route('datatable.catalog.category')])
             ->parameters($this->getBuilderParameters());
     }
 

@@ -48,7 +48,6 @@ class DiscountDataTable extends DataTable
         return $this->builder()
             ->setTableId('discount_datatable')
             ->columns($this->getColumns())
-            ->ajax(['url' => route('datatable.catalog.discount')])
             ->parameters($this->getBuilderParameters());
     }
 
