@@ -13,6 +13,8 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'HomeController@index')->name('home');
 
+    Route::get('image/{image}', 'ImageController@index')->name('image.index');
+
     //Catalog
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.', 'namespace' => 'Catalog'], function () {
 

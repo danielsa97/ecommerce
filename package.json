@@ -26,7 +26,6 @@
         "datatables.net-buttons-bs": "^1.6.2",
         "jquery": "^3.2",
         "moment": "^2.27.0",
-        "nprogress": "^0.2.0",
         "overlayscrollbars": "^1.12.0",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",

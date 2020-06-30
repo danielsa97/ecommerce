@@ -12,4 +12,9 @@ class Brand extends Model
     {
         return $this->belongsTo(Status::class, 'status_id', 'id')->where('type', 'general');
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

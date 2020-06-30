@@ -16,6 +16,7 @@ class BrandEditService extends BrandService implements EditInterface
     public static function get(int $id): JsonResponse
     {
         $brand = self::find($id);
-        return new JsonResponse($brand);
+        $brand['image'] = $brand->image->name;
+        return new JsonResponse($brand->withoutRelations());
     }
 }

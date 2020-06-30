@@ -23,8 +23,19 @@ class BrandRequest extends CustomFormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required'
+        ];
+        if ($this->isMethod('POST')) {
+            $rules['image'] = ['required', 'file'];
+        }
+        return $rules;
+    }
+
+    public function attributes()
+    {
+        return [
+            'image' => 'imagem'
         ];
     }
 }

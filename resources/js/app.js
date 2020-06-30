@@ -1,6 +1,5 @@
 require('./bootstrap');
 require('./js-routes');
-const NProgress = require('nprogress');
 
 import Vue from 'vue';
 import VueIziToast from 'vue-izitoast';
@@ -31,14 +30,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: MenuRouter.toRouter()
 });
-// router.beforeEach((to, from, next) => {
-//     console.log('aqui')
-//     NProgress.start();
-//     next();
-// });
-// router.afterEach(() => {
-//     NProgress.done();
-// });
+
 
 //Global Components
 Vue.component('v-select', vSelect);
@@ -48,6 +40,7 @@ Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 Vue.component('data-table', require("./components/DataTable").default);
 Vue.component('page', require("./components/Page").default);
 Vue.component('sidebar', require("./components/Sidebar/Sidebar").default);
+Vue.component('input-image', require("./components/InputImage").default);
 
 if (document.getElementById('app')) new Vue({
     el: '#app',

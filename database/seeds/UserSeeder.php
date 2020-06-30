@@ -34,12 +34,5 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'profile_id' => Profile::whereName('customer')->first()->id
         ]);
-        //Seta imagem padrao a todos os usuarios
-        User::all()->each(function (User $user) use ($status) {
-            $user->image()->create([
-                'url' => env('APP_URL') . '/storage/images/user/user.svg',
-                'status_id' => $status
-            ]);
-        });
     }
 }

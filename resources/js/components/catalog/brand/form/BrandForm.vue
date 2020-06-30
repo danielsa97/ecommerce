@@ -5,12 +5,15 @@
              @hidden="reset"
              ok-title="Salvar"
              ok-only>
-        <form ref="brand_form">
+        <form ref="brand_form" enctype="multipart/form-data">
             <form-group label="Nome" :required="true">
                 <b-form-input name="name" :value="content.name"/>
             </form-group>
             <form-group label="Descrição">
                 <b-form-textarea name="description" :value="content.description"/>
+            </form-group>
+            <form-group label="Imagem" name="image" :required="true">
+                <input-image v-model="content.image"/>
             </form-group>
         </form>
     </b-modal>
@@ -44,9 +47,13 @@
                 });
             },
             save() {
+                let form = new FormData(this.$refs['brand_form']);
+                if (this.content.image) {
+                    form.set('image', this.content.image);
+                }
                 this.request(this.form.action, {
                     method: this.form.method,
-                    data: new FormData(this.$refs['brand_form']),
+                    data: form,
                     toast: true,
                     onSuccess: () => {
                         this.$bvModal.hide('brand_modal');

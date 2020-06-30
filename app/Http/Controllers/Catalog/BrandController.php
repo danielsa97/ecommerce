@@ -29,7 +29,7 @@ class BrandController extends Controller
 
     public function store(BrandRequest $request)
     {
-        return BrandStoreService::store($request->only('name', 'description'));
+        return BrandStoreService::store($request->only('name', 'description', 'image'));
     }
 
     public function edit(int $id)
@@ -39,7 +39,7 @@ class BrandController extends Controller
 
     public function update(BrandRequest $request, int $id)
     {
-        return BrandUpdateService::update($id, $request->only('name', 'description'));
+        return BrandUpdateService::update($id, $request->only('name', 'description', 'image'));
     }
 
     public function changeStatus(int $brandId)
