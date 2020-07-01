@@ -1,12 +1,12 @@
 <template>
-    <page title="Categorias" description="Gerencie as categorias da loja">
+    <div>
         <category-form ref="category_form" @save="dataTableRefresh"/>
         <data-table @create="$bvModal.show('category_modal')"
                     @edit="$refs.category_form.edit($event)"
                     @change-status="changeCategoryStatus"
                     :id="datatable"
                     route="catalog.category.index"/>
-    </page>
+    </div>
 </template>
 
 <script>

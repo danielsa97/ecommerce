@@ -1,12 +1,12 @@
 <template>
-    <page title="Marcas" description="Gerencie as marcas disponíveis no sistema">
+    <div>
         <brand-form ref="brand_form" @save="dataTableRefresh"/>
         <data-table @create="$bvModal.show('brand_modal')"
                     @edit="$refs.brand_form.edit($event)"
                     @change-status="changeBrandStatus"
                     :id="datatable"
                     route="catalog.brand.index"/>
-    </page>
+    </div>
 </template>
 
 <script>
@@ -21,6 +21,9 @@
             return {
                 datatable: 'brand_datatable'
             }
+        },
+        mounted() {
+            console.log(this.$route)
         },
         methods: {
             changeBrandStatus({id}) {

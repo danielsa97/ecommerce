@@ -1,4 +1,6 @@
 @extends('adminlte::page')
 @section('content')
-    <router-view class="view"></router-view>
+    <page>
+        <router-view></router-view>
+    </page>
 @stop

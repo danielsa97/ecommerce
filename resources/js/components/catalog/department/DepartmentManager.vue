@@ -1,12 +1,12 @@
 <template>
-    <page title="Departamentos" description="Gerencie os departamentos da loja">
+    <div>
         <department-form ref="department_form" @save="dataTableRefresh"/>
         <data-table @create="$bvModal.show('department_modal')"
                     @edit="$refs.department_form.edit($event)"
                     @change-status="changeDepartmentStatus"
                     :id="datatable"
                     route="catalog.department.index"/>
-    </page>
+    </div>
 </template>
 
 <script>

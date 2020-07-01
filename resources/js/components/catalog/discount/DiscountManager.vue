@@ -1,12 +1,12 @@
 <template>
-    <page title="Descontos" description="Gerencie os descontos da loja">
+    <div>
         <discount-form ref="discount_form" @save="dataTableRefresh"/>
         <data-table @create="$bvModal.show('discount_modal')"
                     @edit="$refs.discount_form.edit($event)"
                     @change-status="changeDiscountStatus"
                     :id="datatable"
                     route="catalog.discount.index"/>
-    </page>
+    </div>
 </template>
 
 <script>

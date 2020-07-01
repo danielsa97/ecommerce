@@ -1,23 +1,16 @@
 <template>
     <b-card>
         <div class="d-flex wrap justify-content-center">
-            <input type="file" ref="input_file" class="d-none" @input="fileChange">
-
-            <div class="img-box border rounded m-1" v-if="images.length" v-for="(image, index) in images"
-                 :key="index">
+            <input type="file" @focus.prevent="null" ref="input_file" class="d-none" @input="fileChange"
+                   :multiple="multiple">
+            <div class="img-box bg-light border rounded m-1"
+                 v-if="images.length"
+                 v-for="image in images"
+                 :key="image.name">
                 <button class="btn btn-remove btn-danger" @click.prevent="removeImage(image)">&times;</button>
-                <img :src="`/image/${image}`" alt="image" class="preview rounded cursor-pointer">
+                <img :src="image.url" alt="Image" class="rounded cursor-pointer">
             </div>
-            <div class="img-box border rounded m-1"
-                 v-if="addedImages.length"
-                 v-for="img in addedImages"
-                 :key="img.name">
-                <button class="btn btn-remove btn-danger" @click.prevent="removeImage(img, 'addedImages')">
-                    &times;
-                </button>
-                <img :src="img.url" alt="image" class="preview rounded cursor-pointer">
-            </div>
-            <button v-if="(images.length + addedImages.length) === 0  || multiple"
+            <button v-if="images.length === 0  || multiple"
                     class="btn m-1 btn-primary btn-box"
                     @click.prevent="openFile">
                 <i class="fa fa-plus"/>
@@ -40,22 +33,30 @@
         },
         data() {
             return {
-                images: this.value ? (Array.isArray(this.value) ? this.value : [this.value]) : [],
-                addedImages: []
+                images: [],
             };
         },
         mounted() {
-            this.$emit('input', null);
+            let images = this.value ? (Array.isArray(this.value) ? this.value : [this.value]) : [];
+            images.forEach(async image => {
+                let url = route('image.index', {image});
+                let blob = await fetch(url).then(r => r.blob());
+                this.images.push({
+                    name: image,
+                    url: url,
+                    file: new File([blob], image, {type: blob.type})
+                });
+            });
         },
         watch: {
-            addedImages(value) {
+            images(value) {
                 this.$emit('input', value.length === 1 && !this.multiple ? value[0].file : value.map(image => image.file));
             }
         },
         methods: {
-            removeImage(image, list = 'images') {
-                const index = this[list].findIndex(img => img === image);
-                if (index !== -1) this[list].splice(index, 1);
+            removeImage(image) {
+                const index = this.images.findIndex(img => img === image);
+                if (index !== -1) this.images.splice(index, 1);
             },
             openFile() {
                 this.$refs.input_file.click();
@@ -72,17 +73,16 @@
                         let objectUrl = URL.createObjectURL(file);
                         let blob = await fetch(objectUrl).then(r => r.blob());
                         let fileName = 'img_' + Math.random().toString(16).substr(7);
-                        this.addedImages.push({
+                        this.images.push({
                             name: fileName,
                             url: objectUrl,
                             file: new File([blob], fileName, {type: blob.type})
                         });
-                        target.value = "";
                     });
                 } else {
-                    this.$toast.error("Tipo de arquivo não suportado");
-                    target.value = "";
+                    this.$toast.error("Arquivo inválido");
                 }
+                target.value = "";
             }
         }
 
@@ -94,9 +94,19 @@
         flex-wrap: wrap;
     }
 
-    .img-box, .preview, .btn-box {
+    .img-box, .btn-box {
         width: 70px;
         height: 70px;
+    }
+
+    .img-box img {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        max-width: 65px;
+        max-height: 65px;
+        height: auto;
     }
 
     .img-box:hover > .btn-remove {
@@ -109,6 +119,7 @@
         margin-top: -15px;
         margin-left: 55px;
         width: 30px;
+        z-index: 100;
         height: 30px;
         border-radius: 50px;
         font-size: 20px;

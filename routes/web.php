@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('logout', 'LoginController@logout')->name('logout')->middleware('auth');
 });
 
-//ROTAS AUTENTICADAS
+//AUTHENTICATED ROUTES
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'HomeController@index')->name('home');
 
@@ -70,6 +70,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('{id}/edit', 'UserController@edit')->name('edit');
             Route::put('{id}', 'UserController@update')->name('update');
             Route::put('{id}/change-status', 'UserController@changeStatus')->name('change-status');
+        });
+
+        Route::group(['prefix' => 'store', 'as' => 'store.'], function () {
+            Route::get('/', 'StoreController@edit')->name('edit');
+            Route::put('/', 'StoreController@update')->name('update');
         });
     });
 

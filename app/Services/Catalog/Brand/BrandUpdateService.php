@@ -4,8 +4,8 @@
 namespace App\Services\Catalog\Brand;
 
 
-use App\Models\Brand;
 use App\Services\UpdateInterface;
+use App\Traits\ImageStorageTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\UploadedFile;
@@ -18,18 +18,8 @@ use Mockery\Exception;
 class BrandUpdateService extends BrandService implements UpdateInterface
 {
 
-    private static function updateImage(UploadedFile $image)
-    {
-        try {
-            $response['name'] = sha1(Str::random(40));
-            $response['path'] = $image->storeAs('image', $response['name']);
-            return $response;
-        } catch (Exception $exception) {
-            throw new HttpResponseException(response()->json([
-                "message" => "Falha upload da imagem",
-            ], 500));
-        }
-    }
+    use ImageStorageTrait;
+
 
     /**
      * @param int $id
@@ -44,7 +34,7 @@ class BrandUpdateService extends BrandService implements UpdateInterface
             $brand->update(Arr::except($request, 'image'));
             $brand->save();
             if (isset($request['image'])) {
-                $image = self::updateImage($request['image']);
+                $image = self::findOrStore($request['image']);
                 $brand->image()->update($image);
             }
             DB::commit();

@@ -1,12 +1,12 @@
 <template>
-    <page title="Usuários" description="Gerencie os usuários do sistema">
+    <div>
         <user-form ref="user_form" @save="dataTableRefresh"/>
         <data-table @create="$bvModal.show('user_modal')"
                     @edit="$refs.user_form.edit($event)"
                     @change-status="changeUserStatus"
                     :id="datatable"
                     route="setting.user.index"/>
-    </page>
+    </div>
 </template>
 
 <script>
