@@ -51,7 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
-            Route::get('/product-search', 'ProductController@productSearch')->name('search');
+            Route::get('/', 'ProductController@index')->name('index');
+            Route::get('/', 'ProductController@store')->name('store');
+            Route::put('{id}/change-status', 'ProductController@changeStatus')->name('change-status');
+            Route::get('product-search', 'ProductController@productSearch')->name('search');
             Route::group(['prefix' => 'skus', 'as' => 'skus.'], function () {
                 Route::get('skus-search', 'SkusController@sKusSearch')->name('search');
             });

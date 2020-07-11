@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function sKus()
+    public function skus()
     {
-        return $this->hasMany(Sku::class, 'product_id', 'id');
+        return $this->hasMany(Sku::class);
     }
 }
