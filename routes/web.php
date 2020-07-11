@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
     });
 
-
-    Route::get('/{any?}', 'HomeController@index')->where('any', '^(?!api\/)[\/\w\.-]*');
+    Route::get('widget/{name}', 'Home\WidgetController@index')->name('widget.index');
+    Route::get('/{any?}', 'Home\HomeController@index')->where('any', '^(?!api\/)[\/\w\.-]*');
 });
 

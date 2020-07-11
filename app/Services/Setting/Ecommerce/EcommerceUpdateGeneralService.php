@@ -40,6 +40,7 @@ class EcommerceUpdateGeneralService implements UpdateInterface
             $store('favicon');
             $ecommerce->update(Arr::only($request, ['description', 'name']));
             DB::commit();
+            EcommerceUpdateSessionService::run();
             return EcommerceEditService::get($id);
         } catch (Exception $exception) {
             DB::rollBack();

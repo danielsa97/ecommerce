@@ -5,6 +5,7 @@ import Home from "../components/home/Home";
 import UserManager from "../components/setting/user/UserManager";
 import DiscountManager from "../components/catalog/discount/DiscountManager";
 import EcommerceManager from "../components/setting/ecommerce/EcommerceManager";
+import ProductManager from "../components/catalog/product/ProductManager";
 
 export default [
     {
@@ -62,6 +63,17 @@ export default [
                             description: 'Gerencie as categorias da loja'
                         },
                         component: CategoryManager,
+                    },
+                    {
+                        path: 'product',
+                        menu: {
+                            label: "Produtos"
+                        },
+                        meta: {
+                            title: 'Produtos',
+                            description: 'Gerencie os produtos da loja'
+                        },
+                        component: ProductManager,
                     },
                     {
                         path: 'discount',

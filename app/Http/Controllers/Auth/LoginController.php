@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Ecommerce;
 use App\Providers\RouteServiceProvider;
+use App\Services\Setting\Ecommerce\EcommerceUpdateSessionService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -36,19 +36,15 @@ class LoginController extends Controller
      *
      * @return void
      */
-    private $ecommerce;
 
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->ecommerce = Ecommerce::query()->first();
     }
 
     public function showLoginForm()
     {
-        session()->put('brand', $this->ecommerce->brand->name ?? null);
-        session()->put('favicon', $this->ecommerce->favicon->name ?? null);
-        session()->put('ecommerce_id', $this->ecommerce->id);
+        EcommerceUpdateSessionService::run();
         return view('auth.login');
     }
 

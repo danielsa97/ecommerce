@@ -57,7 +57,7 @@
         </nav>
         <aside class="main-sidebar vh-100 {{config('adminlte.classes_sidebar', 'sidebar-dark-primary elevation-4')}}">
             <a href="{{ $dashboard_url }}"
-               class="brand-link bg-light text-center {{ config('adminlte.classes_brand') }}">
+               class="brand-link bg-white text-center {{ config('adminlte.classes_brand') }}">
                 @if(session('brand'))
                     <img class="img-fluid pl-5 pr-5 pb-2" src="{{route('image.index', session('brand'))}}"
                          alt="{!! config('adminlte.title', '<b>E</b>-Commerce') !!}">
