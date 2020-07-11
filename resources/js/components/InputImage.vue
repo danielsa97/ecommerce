@@ -1,8 +1,6 @@
 <template>
     <b-card>
         <div class="d-flex wrap justify-content-center">
-            <input type="file" @focus.prevent="null" ref="input_file" class="d-none" @input="fileChange"
-                   :multiple="multiple">
             <div class="img-box bg-light border rounded m-1"
                  v-if="images.length"
                  v-for="image in images"
@@ -12,7 +10,7 @@
             </div>
             <button v-if="images.length === 0  || multiple"
                     class="btn m-1 btn-primary btn-box"
-                    @click.prevent="openFile">
+                    @click.prevent="inputFile.click()">
                 <i class="fa fa-plus"/>
             </button>
         </div>
@@ -32,34 +30,42 @@
             }
         },
         data() {
+            let inputFile = document.createElement('input');
+            inputFile.type = 'file';
+            inputFile.multiple = this.multiple;
+            inputFile.onchange = this.fileChange;
             return {
                 images: [],
+                inputFile
             };
         },
         mounted() {
-            let images = this.value ? (Array.isArray(this.value) ? this.value : [this.value]) : [];
-            images.forEach(async image => {
-                let url = route('image.index', {image});
-                let blob = await fetch(url).then(r => r.blob());
-                this.images.push({
-                    name: image,
-                    url: url,
-                    file: new File([blob], image, {type: blob.type})
-                });
-            });
+            this.makePreview()
         },
         watch: {
+            value() {
+                this.makePreview();
+            },
             images(value) {
-                this.$emit('input', value.length === 1 && !this.multiple ? value[0].file : value.map(image => image.file));
+                this.$emit('input', this.multiple ? value?.map(image => image.file) : value[0]?.file);
             }
         },
         methods: {
+            makePreview() {
+                let images = (this.value ? (Array.isArray(this.value) ? this.value : [this.value]) : []).filter(image => typeof image === 'string');
+                if (images.length) {
+                    images.forEach(image => {
+                        this.pushImage(route('image.index', {image}), image);
+                    });
+                }
+            },
+            async pushImage(url, name = 'img_' + Math.random().toString(16).substr(6)) {
+                let blob = await fetch(url).then(r => r.blob());
+                this.images.push({name, url, file: new File([blob], name, {type: blob.type})});
+            },
             removeImage(image) {
                 const index = this.images.findIndex(img => img === image);
                 if (index !== -1) this.images.splice(index, 1);
-            },
-            openFile() {
-                this.$refs.input_file.click();
             },
             fileChange({target}) {
                 let files = Array.from(target.files);
@@ -69,16 +75,7 @@
                     return file.type && validExt.includes(ext.toString().toLowerCase());
                 });
                 if (validFiles) {
-                    files.forEach(async file => {
-                        let objectUrl = URL.createObjectURL(file);
-                        let blob = await fetch(objectUrl).then(r => r.blob());
-                        let fileName = 'img_' + Math.random().toString(16).substr(7);
-                        this.images.push({
-                            name: fileName,
-                            url: objectUrl,
-                            file: new File([blob], fileName, {type: blob.type})
-                        });
-                    });
+                    files.forEach(async file => this.pushImage(URL.createObjectURL(file)));
                 } else {
                     this.$toast.error("Arquivo inválido");
                 }
@@ -103,7 +100,7 @@
         position: relative;
         top: 50%;
         left: 50%;
-        transform: translateY(-50%) translateX(-50%);
+        transform: translate(-50%, -50%);
         max-width: 65px;
         max-height: 65px;
         height: auto;

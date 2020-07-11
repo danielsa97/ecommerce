@@ -13,8 +13,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             StatusSeeder::class,
+            EcommerceSeeder::class,
             ProfileTableSeeder::class,
             UserSeeder::class,
+            NationsSeeder::class,
+            BrazilStatesSeeder::class,
+            BrazilCitiesSeeder::class,
         ]);
 
         //Fake Seeders

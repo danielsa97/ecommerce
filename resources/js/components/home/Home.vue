@@ -1,7 +1,7 @@
 <template>
-    <page title="Início" description="Bem-vindo">
+    <div>
         Você esta logado
-    </page>
+    </div>
 </template>
 
 <script>

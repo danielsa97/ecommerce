@@ -34,11 +34,11 @@ class BrandUpdateService extends BrandService implements UpdateInterface
             $brand->update(Arr::except($request, 'image'));
             $brand->save();
             if (isset($request['image'])) {
-                $image = self::findOrStore($request['image']);
+                $image = self::getInformationOrStore($request['image']);
                 $brand->image()->update($image);
             }
             DB::commit();
-            return new JsonResponse($brand);
+            return BrandEditService::get($id);
         } catch (Exception $exception) {
             DB::rollBack();
             Log::error($exception->getMessage());

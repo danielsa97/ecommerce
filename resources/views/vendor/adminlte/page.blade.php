@@ -56,15 +56,17 @@
             </ul>
         </nav>
         <aside class="main-sidebar vh-100 {{config('adminlte.classes_sidebar', 'sidebar-dark-primary elevation-4')}}">
-            <a href="{{ $dashboard_url }}" class="brand-link {{ config('adminlte.classes_brand') }}">
-                <img
-                    src="{{ asset(config('adminlte.logo_img', 'vendor/adminlte/dist/img/AdminLTELogo.png')) }}"
-                    alt="{{config('adminlte.logo_img_alt', 'AdminLTE')}}"
-                    class="{{ config('adminlte.logo_img_class', 'brand-image img-circle elevation-3') }}"
-                    style="opacity: .8">
-                <span class="brand-text font-weight-light {{ config('adminlte.classes_brand_text') }}">
-                        {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
+            <a href="{{ $dashboard_url }}"
+               class="brand-link bg-light text-center {{ config('adminlte.classes_brand') }}">
+                @if(session('brand'))
+                    <img class="img-fluid pl-5 pr-5 pb-2" src="{{route('image.index', session('brand'))}}"
+                         alt="{!! config('adminlte.title', '<b>E</b>-Commerce') !!}">
+                @else
+                    <span class="brand-text  font-weight-light {{ config('adminlte.classes_brand_text') }}">
+                        {!! config('adminlte.logo', '<b>E-</b>commerce') !!}
                     </span>
+                @endif
+
             </a>
             <div class="sidebar">
                 <nav class="mt-2">

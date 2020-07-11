@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Phone extends Model
+class Tag extends Model
 {
     public $timestamps = false;
+    protected $fillable = ['value'];
 
-    protected $fillable = ['country_code', 'ddd', 'number', 'status_id'];
-
-    public function phoneable()
+    public function taggable()
     {
         return $this->morphTo();
     }

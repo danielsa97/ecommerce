@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Phone extends Model
+class Mail extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['country_code', 'ddd', 'number', 'status_id'];
+    protected $fillable = ['mail', 'status_id'];
 
-    public function phoneable()
+    public function mailable()
     {
         return $this->morphTo();
     }

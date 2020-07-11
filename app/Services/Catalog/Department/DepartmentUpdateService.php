@@ -24,7 +24,7 @@ class DepartmentUpdateService extends DepartmentService implements UpdateInterfa
             $department = self::find($id);
             $department->update($request);
             $department->save();
-            return new JsonResponse($department);
+            return DepartmentEditService::get($id);
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([

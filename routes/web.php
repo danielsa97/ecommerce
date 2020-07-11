@@ -9,11 +9,9 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('logout', 'LoginController@logout')->name('logout')->middleware('auth');
 });
 
+Route::get('image/{image}', 'ImageController@index')->name('image.index');
 //AUTHENTICATED ROUTES
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/dashboard', 'HomeController@index')->name('home');
-
-    Route::get('image/{image}', 'ImageController@index')->name('image.index');
 
     //Catalog
     Route::group(['prefix' => 'catalog', 'as' => 'catalog.', 'namespace' => 'Catalog'], function () {
@@ -72,17 +70,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::put('{id}/change-status', 'UserController@changeStatus')->name('change-status');
         });
 
-        Route::group(['prefix' => 'store', 'as' => 'store.'], function () {
-            Route::get('/', 'StoreController@edit')->name('edit');
-            Route::put('/', 'StoreController@update')->name('update');
+        Route::group(['prefix' => 'ecommerce', 'as' => 'ecommerce.'], function () {
+            Route::get('/', 'EcommerceController@index')->name('index');
+            Route::put('/update-general', 'EcommerceController@updateGeneral')->name('update-general');
+            Route::put('/update-address-and-contact', 'EcommerceController@updateAddressAndContact')->name('update-address-and-contact');
         });
     });
 
 
-    Route::get('/{any?}', function () {
-        return view('page');
-    })->where('any', '^(?!api\/)[\/\w\.-]*');
-
-
+    Route::get('/{any?}', 'HomeController@index')->where('any', '^(?!api\/)[\/\w\.-]*');
 });
 

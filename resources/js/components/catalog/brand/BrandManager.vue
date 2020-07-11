@@ -22,9 +22,6 @@
                 datatable: 'brand_datatable'
             }
         },
-        mounted() {
-            console.log(this.$route)
-        },
         methods: {
             changeBrandStatus({id}) {
                 this.changeStatus(route('catalog.brand.change-status', {id: id}), this.datatable);

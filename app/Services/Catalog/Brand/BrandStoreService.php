@@ -27,8 +27,7 @@ class BrandStoreService implements StoreInterface
             $statusAtivoId = StatusService::get('general', 'A')->id;
             $request['status_id'] = $statusAtivoId;
             $brand = Brand::query()->create(Arr::except($request, 'image'));
-
-            $image = self::findOrStore($request['image']);
+            $image = self::getInformationOrStore($request['image']);
             $image['status_id'] = $statusAtivoId;
             $brand->image()->create($image);
 

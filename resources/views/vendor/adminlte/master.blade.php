@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}"/>
+    @if(session('favicon'))
+        <link rel="shortcut icon" href="{{ route('image.index', session('favicon'))}}"/>
+    @endif
 
 </head>
 <body>

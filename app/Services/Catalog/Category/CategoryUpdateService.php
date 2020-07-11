@@ -24,7 +24,7 @@ class CategoryUpdateService extends CategoryService implements UpdateInterface
             $category = self::find($id);
             $category->update($request);
             $category->save();
-            return new JsonResponse($category);
+            return CategoryEditService::get($id);
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([

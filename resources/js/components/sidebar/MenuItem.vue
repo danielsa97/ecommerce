@@ -2,7 +2,8 @@
     <li :class="['nav-item', route.children ? 'has-treeview' : '']">
         <slot v-if="route.menu">
             <router-link :to="route.children ? '#': (route.path || '#')" class="nav-link">
-                <i :class="route.menu.icon || ''"/>
+                <span :class="route.menu.icon" v-if="route.menu.icon"/>
+                <span v-else>&raquo;</span>
                 <i v-if="route.children" class="fas fa-angle-left right"/>
                 {{route.menu.label }}
             </router-link>

@@ -10,6 +10,6 @@ class ImageController extends Controller
 {
     public function index()
     {
-        return GetImageService::get();
+        return GetImageService::getImage();
     }
 }

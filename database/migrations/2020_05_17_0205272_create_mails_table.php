@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagesTable extends Migration
+class CreateMailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('mails', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('group')->nullable();
-            $table->string('path');
-            $table->morphs('imageable');
-            $table->timestamps();
+            $table->string('mail')->unique();
+            $table->morphs('mailable');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
         });
@@ -32,6 +29,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('emails');
     }
 }

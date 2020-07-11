@@ -18,11 +18,9 @@ class CreatePhonesTable extends Migration
             $table->integer('country_code')->default(55);
             $table->integer('ddd');
             $table->integer('number');
-            $table->unsignedBigInteger('customer_id');
+            $table->morphs('phoneable');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
-            $table->foreign('customer_id')->references('id')->on('customers');
-            $table->timestamps();
         });
     }
 

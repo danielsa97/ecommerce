@@ -4,7 +4,7 @@ import CategoryManager from "../components/catalog/category/CategoryManager";
 import Home from "../components/home/Home";
 import UserManager from "../components/setting/user/UserManager";
 import DiscountManager from "../components/catalog/discount/DiscountManager";
-import StoreManager from "../components/setting/store/StoreManager";
+import EcommerceManager from "../components/setting/ecommerce/EcommerceManager";
 
 export default [
     {
@@ -42,17 +42,6 @@ export default [
                         component: BrandManager,
                     },
                     {
-                        path: 'category',
-                        menu: {
-                            label: "Categorias"
-                        },
-                        meta: {
-                            title: 'Categorias',
-                            description: 'Gerencie as categorias da loja'
-                        },
-                        component: CategoryManager,
-                    },
-                    {
                         path: 'department',
                         menu: {
                             label: "Departamentos"
@@ -62,6 +51,17 @@ export default [
                             description: 'Gerencie os departamentos da loja'
                         },
                         component: DepartmentManager,
+                    },
+                    {
+                        path: 'category',
+                        menu: {
+                            label: "Categorias"
+                        },
+                        meta: {
+                            title: 'Categorias',
+                            description: 'Gerencie as categorias da loja'
+                        },
+                        component: CategoryManager,
                     },
                     {
                         path: 'discount',
@@ -85,15 +85,15 @@ export default [
                 },
                 children: [
                     {
-                        path: 'store',
+                        path: 'ecommerce',
                         menu: {
                             label: "Loja"
                         },
                         meta: {
                             title: 'Configurações da loja',
-                            description: 'Configure os parametros e configurações da loja'
+                            description: 'Configure os parametros da loja'
                         },
-                        component: StoreManager,
+                        component: EcommerceManager,
                     },
                     {
                         path: 'user',

@@ -20,12 +20,11 @@ class CreateAddressesTable extends Migration
             $table->string('number', 8)->nullable();
             $table->string('zipcode', 11)->nullable();
             $table->string('complement');
+            $table->morphs('addressable');
             $table->unsignedBigInteger('city_id');
-            $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('status');
-
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
         });
     }

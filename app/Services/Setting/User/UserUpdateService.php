@@ -24,7 +24,7 @@ class UserUpdateService extends UserService implements UpdateInterface
             $user = self::find($id);
             $user->update(array_filter($request));
             $user->save();
-            return new JsonResponse($user);
+            return UserEditService::get($id);
         } catch (Exception $exception) {
             Log::error($exception->getMessage());
             throw new HttpResponseException(response()->json([

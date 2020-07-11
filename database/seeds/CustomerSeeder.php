@@ -21,7 +21,7 @@ class CustomerSeeder extends Seeder
         Customer::query()->firstOrCreate([
             'name' => $user->name,
             'date_of_birth' => Carbon::now()->toDateString(),
-            'document' => '02033531295',
+            'document' => '02033531298',
             'gender' => 'M',
             'status_id' => StatusService::get('general', 'A')->id,
             'user_id' => $user->id

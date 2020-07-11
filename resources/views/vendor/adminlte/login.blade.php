@@ -3,7 +3,9 @@
     <div class="login-page">
         <div class="login-box ">
             <div class="login-logo">
-                {!! config('adminlte.title', '<b>E</b>-Commerce') !!}
+                @if(session('brand'))
+                    <img class="img-fluid pl-5 pr-5 pb-2" src="{{route('image.index', session('brand'))}}" alt="{!! config('adminlte.title', '<b>E</b>-Commerce') !!}">
+                @else {!! config('adminlte.title', '<b>E</b>-Commerce') !!} @endif
             </div>
             <div class="card">
                 <div class="card-body login-card-body">
