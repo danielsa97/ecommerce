@@ -14,12 +14,12 @@ class EcommerceController extends Controller
 
     public function index()
     {
-        return EcommerceEditService::get(session('ecommerce_id'));
+        return EcommerceEditService::get(session()->get('ecommerce')->id);
     }
 
     public function updateGeneral(EcommerceGeneralRequest $request)
     {
-        return EcommerceUpdateGeneralService::update(session('ecommerce_id'), $request->all());
+        return EcommerceUpdateGeneralService::update(session()->get('ecommerce')->id, $request->all());
     }
 
     public function updateAddressAndContact(EcommerceGeneralRequest $request)

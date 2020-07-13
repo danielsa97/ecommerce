@@ -14,7 +14,7 @@ class EcommerceUpdateSessionService
         $ecommerce = Ecommerce::query()->first();
         session()->put('brand', $ecommerce->brand->name ?? null);
         session()->put('favicon', $ecommerce->favicon->name ?? null);
-        session()->put('ecommerce_id', $ecommerce->id);
+        session()->put('ecommerce', $ecommerce);
         session()->save();
     }
 }
