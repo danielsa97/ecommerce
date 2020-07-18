@@ -6,10 +6,23 @@ import UserManager from "../components/setting/user/UserManager";
 import DiscountManager from "../components/catalog/discount/DiscountManager";
 import EcommerceManager from "../components/setting/ecommerce/EcommerceManager";
 import ProductManager from "../components/catalog/product/ProductManager";
+import Login from "../components/template/Login";
+import Error404 from '../components/template/views/404';
 
 export default [
     {
-        path: '/dashboard',
+        path: '/login',
+        name: 'login',
+        component: Login,
+        meta: {
+            auth: false
+        },
+    },
+    {
+        path: 'dashboard',
+        meta: {
+            auth: true
+        },
         children: [
             {
                 path: '/',
@@ -18,6 +31,7 @@ export default [
                     icon: 'fas fa-tachometer-alt',
                 },
                 meta: {
+                    auth: true,
                     title: 'Início',
                     description: 'Bem-vindo ao sistema'
                 },
@@ -37,6 +51,7 @@ export default [
                             label: "Marcas"
                         },
                         meta: {
+                            auth: true,
                             title: 'Marcas',
                             description: 'Gerencie as marcas disponíveis na loja'
                         },
@@ -48,6 +63,7 @@ export default [
                             label: "Departamentos"
                         },
                         meta: {
+                            auth: true,
                             title: 'Departamentos',
                             description: 'Gerencie os departamentos da loja'
                         },
@@ -59,6 +75,7 @@ export default [
                             label: "Categorias"
                         },
                         meta: {
+                            auth: true,
                             title: 'Categorias',
                             description: 'Gerencie as categorias da loja'
                         },
@@ -70,6 +87,7 @@ export default [
                             label: "Produtos"
                         },
                         meta: {
+                            auth: true,
                             title: 'Produtos',
                             description: 'Gerencie os produtos da loja'
                         },
@@ -81,6 +99,7 @@ export default [
                             label: "Descontos"
                         },
                         meta: {
+                            auth: true,
                             title: 'Descontos',
                             description: 'Gerencie os descontos disponíveis'
                         },
@@ -102,6 +121,7 @@ export default [
                             label: "Loja"
                         },
                         meta: {
+                            auth: true,
                             title: 'Configurações da loja',
                             description: 'Configure os parametros da loja'
                         },
@@ -113,6 +133,7 @@ export default [
                             label: "Usuários"
                         },
                         meta: {
+                            auth: true,
                             title: 'Usuários',
                             description: 'Gerencie os usuário do sistema'
                         },
@@ -121,5 +142,22 @@ export default [
                 ]
             }
         ]
+    },
+
+];
+
+export const PageError = [
+    {
+        path: '/',
+        redirect: '/dashboard'
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: Error404
+    },
+    {
+        path: '*',
+        redirect: '/404'
     }
 ];

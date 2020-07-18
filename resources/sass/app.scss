@@ -1,15 +1,24 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
 // Variables
 @import 'variables';
 
 //Styles
-@import "~vue-select-sides/styles/themes/soft.scss";
-@import '~overlayscrollbars/css/OverlayScrollbars.min.css';
+
+
 @import '~bootstrap/scss/bootstrap';
-@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+
+@import "~admin-lte/dist/css/adminlte.css";
+
 @import '~bootstrap-vue/src/index.scss';
+@import "~vue-select-sides/styles/themes/soft.scss";
+//@import '~overlayscrollbars/css/OverlayScrollbars.min.css';
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
 @import "~izitoast/dist/css/iziToast.css";
 @import "~vue-select/dist/vue-select.css";
 @import '~vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';

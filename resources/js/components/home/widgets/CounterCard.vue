@@ -45,7 +45,7 @@
             };
         },
         mounted() {
-            axios.get(route('widget.index', {name: this.name})).then(({data}) => {
+            this.$http.get(route('widget.index', {name: this.name})).then(({data}) => {
                 this.counter = data;
             });
         }
