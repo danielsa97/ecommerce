@@ -24,7 +24,7 @@ class CategoryRequest extends CustomFormRequest
     public function rules()
     {
         return [
-            'department_id' => 'required',
+            'departments' => 'required|array',
             'name' => 'required'
         ];
     }
@@ -32,7 +32,7 @@ class CategoryRequest extends CustomFormRequest
     public function attributes()
     {
         return [
-            'department_id' => 'departamento'
+            'departments' => 'departamento'
         ];
     }
 }
