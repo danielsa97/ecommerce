@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function store(CategoryRequest $request)
     {
-        return CategoryStoreService::store($request->only('name', 'description', 'category_id', 'department_id'));
+        return CategoryStoreService::store($request->only('name', 'description', 'category_id', 'departments'));
     }
 
     public function edit(int $id)
@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
     public function update(CategoryRequest $request, int $id)
     {
-        return CategoryUpdateService::update($id, $request->only('name', 'description', 'category_id', 'department_id'));
+        return CategoryUpdateService::update($id, $request->only('name', 'description', 'category_id', 'departments'));
     }
 
     public function changeStatus(int $categoryId)

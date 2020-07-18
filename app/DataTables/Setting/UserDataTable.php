@@ -55,7 +55,7 @@ class UserDataTable extends DataTable
             ],
             'name' => ['title' => 'Nome'],
             'email' => ['title' => 'E-mail'],
-            'profile' => ['title' => 'Profile', 'name' => 'profiles.name'],
+            'profile' => ['title' => 'Perfil', 'name' => 'profiles.name'],
             'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
     }

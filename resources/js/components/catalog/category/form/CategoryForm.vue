@@ -12,12 +12,12 @@
             <form-group label="Descrição">
                 <b-form-textarea name="description" :value="content.description"/>
             </form-group>
-            <form-group label="Departamento" name="department_id" :required="true">
+            <form-group label="Departamento" name="departments" :required="true">
                 <b-row>
                     <b-col cols="10">
-                        <v-select v-model="content.department"
-                                  :options="options.department"
-                                  @search="departmentSearch"/>
+                        <v-select v-model="content.departments"
+                                  :options="options.departments"
+                                  @search="departmentSearch" :multiple="true"/>
                     </b-col>
                     <b-col cols="2">
                         <b-button variant="primary" v-b-tooltip="'Novo'" size="sm" block v-b-modal.department_modal>
@@ -53,7 +53,7 @@
                 },
                 options: {
                     category: [],
-                    department: []
+                    departments: []
                 },
             }
         },
@@ -69,7 +69,7 @@
             async departmentSearch(search = null, loading) {
                 loading(true);
                 let {data} = await axios.get(route('catalog.department.search') + `?search=${search}`);
-                this.options.department = data;
+                this.options.departments = data;
                 loading(false);
             },
 
@@ -87,7 +87,9 @@
             save() {
                 let form = new FormData(this.$refs['category_form']);
                 form.set('category_id', this.content?.category?.code ?? '');
-                form.set('department_id', this.content?.department?.code);
+                this.content?.departments?.forEach(department => {
+                    form.append('departments[]', department?.code);
+                });
                 this.request(this.form.action, {
                     method: this.form.method,
                     data: form,

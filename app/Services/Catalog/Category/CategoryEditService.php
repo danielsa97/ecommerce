@@ -19,7 +19,7 @@ class CategoryEditService extends CategoryService implements EditInterface
     {
         $category = self::find($id);
         $category->category = new CategorySearchResource($category->category);
-        $category->department = new DepartmentSearchResource($category->department);
+        $category->departments =  DepartmentSearchResource::collection($category->departments);
         return new JsonResponse($category->withoutRelations());
     }
 }

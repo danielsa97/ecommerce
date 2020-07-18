@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    protected $fillable = ['name', 'description', 'category_id', 'department_id', 'status_id'];
+    protected $fillable = ['name', 'description', 'category_id', 'departments', 'status_id'];
 
     public function status()
     {
@@ -23,8 +23,8 @@ class Category extends Model
         return $this->hasMany(self::class);
     }
 
-    public function department()
+    public function departments()
     {
-        return $this->belongsTo(Department::class);
+        return $this->belongsToMany(Department::class, 'category_department', 'category_id', 'department_id');
     }
 }
