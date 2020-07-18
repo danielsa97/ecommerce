@@ -2,6 +2,7 @@
     <li :class="['nav-item', route.children ? 'has-treeview' : '']">
         <template v-if="route.menu">
             <a href="#" v-if="route.children" class="nav-link  font-weight-bold">
+                <span :class="route.menu.icon" v-if="route.menu.icon"/>
                 <i v-if="route.children" class="fas fa-angle-left right"/>
                 {{route.menu.label }}
             </a>
