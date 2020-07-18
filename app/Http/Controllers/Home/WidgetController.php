@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Home;
 
 
 use App\Http\Controllers\Controller;
-use App\Services\Widget\WidgetService;
+use App\Services\Home\Widget\WidgetService;
 
 class WidgetController extends Controller
 {

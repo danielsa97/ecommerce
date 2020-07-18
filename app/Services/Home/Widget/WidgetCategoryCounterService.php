@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\Widget;
+namespace App\Services\Home\Widget;
 
 
 use App\Models\Category;

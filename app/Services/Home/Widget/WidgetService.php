@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\Widget;
+namespace App\Services\Home\Widget;
 
 
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -13,7 +13,7 @@ class WidgetService
     public static function get(string $name)
     {
         try {
-            $class = "App\Services\Widget\Widget" . ucfirst(Str::camel($name)) . "Service";
+            $class = "App\Services\Home\Widget\Widget" . ucfirst(Str::camel($name)) . "Service";
             if (class_exists($class)) {
                 return $class::run();
             }
