@@ -1,6 +1,7 @@
+import Container from "./template/Container";
+
 require('./bootstrap');
 require('./js-routes');
-
 import Vue from 'vue';
 import VueIziToast from 'vue-izitoast';
 import vSelect from 'vue-select';
@@ -39,11 +40,10 @@ Vue.component('form-group-multiple', require("./components/FormGroupMultiple").d
 Vue.component("vue-select-sides", VueSelectSides);
 Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 Vue.component('data-table', require("./components/DataTable").default);
-Vue.component('page', require("./components/Page").default);
-Vue.component('sidebar', require("./components/sidebar/Sidebar").default);
 Vue.component('input-image', require("./components/InputImage").default);
 
 if (document.getElementById('app')) new Vue({
     el: '#app',
+    render: h => h(Container),
     router
 });

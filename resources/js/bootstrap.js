@@ -9,7 +9,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 const loading = {
     stage: 1,
     run: () => {
-        console.log(loading.stage)
         switch (loading.stage) {
             case 2:
                 setTimeout(() => {
@@ -54,6 +53,7 @@ require('overlayscrollbars');
 require('bootstrap');
 require('datatables.net-buttons-bs');
 require('datatables.net-bs4');
+require('admin-lte');
 
 const DATATABLE_PT_BR = require('./assets/datatable-pt-br');
 

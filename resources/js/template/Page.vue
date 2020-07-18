@@ -5,7 +5,9 @@
                 <h3>{{$route.meta.title}} / <small class="fs15">{{$route.meta.description}}</small></h3>
             </div>
             <b-card class="content">
-                <slot/>
+                <transition name="slide-fade" mode="out-in">
+                    <router-view/>
+                </transition>
             </b-card>
         </div>
     </div>
