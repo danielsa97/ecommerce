@@ -11,7 +11,7 @@ const FormMixin = {
             if (options.data instanceof FormData) options.data.set('_method', method);
             else options.data._method = method;
 
-            axios(options).then(response => {
+            this.$http(options).then(response => {
                 if (options.toast) this.$toast.success(response.data?.message ?? "Solicitação realizada");
                 if (options.onSuccess) options.onSuccess(response);
             }).catch(error => {
@@ -28,6 +28,8 @@ const FormMixin = {
                     if (legend) legend.classList.add('text-danger');
                     if (errorElement) errorElement.innerHTML = error[1];
                 });
+            } else if (error?.response?.status === 401) {
+                this.$toast.error("Sem autorização");
             }
         }
     }

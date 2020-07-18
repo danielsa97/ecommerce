@@ -1,4 +1,5 @@
 import routes from './routes';
+import {PageError} from "./routes";
 
 const normalizePath = (route, path) => {
     let newPath;
@@ -32,7 +33,7 @@ export default {
             });
         };
         getUrl(tmpRoutes);
-        return list;
+        return list.concat(PageError);
     },
     toMenu: () => {
         let tmpRoutes = routes;

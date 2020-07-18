@@ -13,7 +13,15 @@ import VueSelectSides from "vue-select-sides";
 import VueFormWizard from 'vue-form-wizard';
 import VueRouter from 'vue-router';
 import MenuRouter from "./vue-router/MenuRouter";
+import App from "./components/template/App";
+import VueAxios from 'vue-axios';
+import VueAuth from '@websanova/vue-auth'
+import auth from "./auth";
+import Vuex from 'vuex';
+import store from "./vuex/store";
 
+Vue.use(Vuex);
+Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
 Vue.use(VueFormWizard);
 Vue.use(money);
@@ -32,6 +40,9 @@ const router = new VueRouter({
     routes: MenuRouter.toRouter()
 });
 
+Vue.router = router;
+Vue.use(VueAuth, auth);
+
 
 //Global Components
 Vue.component('v-select', vSelect);
@@ -42,8 +53,10 @@ Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 Vue.component('data-table', require("./components/DataTable").default);
 Vue.component('input-image', require("./components/InputImage").default);
 
-if (document.getElementById('app')) new Vue({
+new Vue({
     el: '#app',
-    render: h => h(Container),
+    render: app => app(App),
+    store: new Vuex.Store(store),
     router
 });
+

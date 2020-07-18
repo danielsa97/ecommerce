@@ -13,20 +13,21 @@ class ProfileTableSeeder extends Seeder
      */
     public function run()
     {
+        $activeStatusId = StatusService::get('general', 'A')->id;
         $profiles = [
             [
                 "name" => "administrator",
-                "description" => "profile to users Administrator",
-                'status_id' => StatusService::get('general', 'A')->id,
+                "description" => "Profile to Administrator",
+                'status_id' => $activeStatusId,
             ],
             [
                 "name" => "customer",
-                "description" => "profile to users Customers",
-                'status_id' => StatusService::get('general', 'A')->id,
+                "description" => "Profile to Customers",
+                'status_id' => $activeStatusId,
             ]
         ];
         foreach ($profiles as $profile) {
-            Profile::firstOrCreate($profile);
+            Profile::query()->firstOrCreate($profile);
         }
     }
 }
