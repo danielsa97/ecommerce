@@ -4,6 +4,7 @@ namespace App\DataTables\Catalog;
 
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Services\DataTable;
 
@@ -29,18 +30,18 @@ class CategoryDataTable extends DataTable
                       </div>
                     </div>";
             })
+            ->addColumn('department', function ($category) {
+                return view('datatable.catalog.category.departments-label', ['departments' => $category->departments->pluck('name')]);
+            })
             ->editColumn('status', 'datatable.status-label');
-
     }
 
 
-    public function query(Category $brand)
+    public function query(Category $model)
     {
-        return $brand->newQuery()
-            ->join('status', 'categories.status_id', 'status.id')
+        return $model->join('status', 'categories.status_id', 'status.id')
             ->leftJoin('categories as parent', 'categories.category_id', 'parent.id')
-            ->join('departments', 'categories.department_id', 'departments.id')
-            ->select('departments.name as department', 'categories.id', 'parent.name as parent_category', 'categories.name', 'categories.description', 'status.description as status');
+            ->select('categories.id', 'parent.name as parent_category', 'categories.name', 'categories.description', 'status.description as status');
     }
 
     public function html()
@@ -65,7 +66,7 @@ class CategoryDataTable extends DataTable
             ],
             'name' => ['title' => 'Nome', 'width' => '200px',],
             'description' => ['title' => 'Descrição', 'name' => 'categories.description'],
-            'department' => ['title' => 'Departamento', 'name' => 'departments.name'],
+            'department' => ['title' => 'Departamento', 'orderable' => false, 'searchable' => false],
             'parent_category' => ['title' => 'Categoria Pai', 'name' => 'parent.name'],
             'status' => ['title' => 'Status', 'name' => 'status.description', 'width' => '50px', 'class' => 'text-center']
         ];
