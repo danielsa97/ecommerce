@@ -55,12 +55,14 @@
                 let images = (this.value ? (Array.isArray(this.value) ? this.value : [this.value]) : []).filter(image => typeof image === 'string');
                 if (images.length) {
                     images.forEach(image => {
-                        this.pushImage(route('image.index', {image}), image);
+                        this.pushImage(route('public.image.index', {image}), image);
                     });
                 }
             },
             async pushImage(url, name = 'img_' + Math.random().toString(16).substr(6)) {
-                let blob = await fetch(url).then(r => r.blob());
+                let blob = await fetch(url).then(r => {
+                    return r.blob();
+                });
                 this.images.push({name, url, file: new File([blob], name, {type: blob.type})});
             },
             removeImage(image) {

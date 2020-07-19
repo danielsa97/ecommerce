@@ -1,63 +1,66 @@
-import NProgress from 'nprogress';
-
 window.Popper = require('popper.js').default;
 window.$ = window.jQuery = require('jquery');
 window.axios = require('axios');
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+require('jquery-ui-dist/jquery-ui');
+require('overlayscrollbars');
+require('bootstrap');
+require('datatables.net-buttons-bs');
+require('datatables.net-bs4');
+window.AdminLte = require('admin-lte');
 
-const loading = {
+const DATATABLE_PT_BR = require('./assets/datatable-pt-br');
+const NProgress = require('nprogress');
+const axiosLoading = {
     stage: 1,
     run: () => {
-        console.log(loading.stage)
-        switch (loading.stage) {
+        switch (axiosLoading.stage) {
             case 2:
                 setTimeout(() => {
                     NProgress.inc();
-                    loading.run();
+                    axiosLoading.run();
                 }, 500);
                 break;
             case 3:
-                loading.stage = 1;
+                axiosLoading.stage = 1;
                 NProgress.done();
                 break;
         }
     },
     done: () => {
-        loading.stage = 3;
+        axiosLoading.stage = 3;
     }
-
 };
 
 
 axios.interceptors.request.use((config) => {
-    if (loading.stage === 1) {
+    if (axiosLoading.stage === 1) {
         NProgress.start();
-        loading.stage = 2;
-        loading.run();
+        axiosLoading.stage = 2;
+        axiosLoading.run();
     }
     return config;
 }, (error) => {
-    loading.done();
+    axiosLoading.done();
     return Promise.reject(error);
 });
 
 axios.interceptors.response.use((response) => {
-    loading.done();
+    axiosLoading.done();
     return response;
 }, (error) => {
-    loading.done();
+    axiosLoading.done();
     return Promise.reject(error);
 });
 
-require('overlayscrollbars');
-require('bootstrap');
-require('datatables.net-buttons-bs');
-require('datatables.net-bs4');
-
-const DATATABLE_PT_BR = require('./assets/datatable-pt-br');
 
 $.extend(true, $.fn.dataTable.defaults, {
     "language": DATATABLE_PT_BR,
 });
 
+$.ajaxSetup({
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('auth_token_default')}`);
+    }
+});

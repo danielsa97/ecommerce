@@ -8,6 +8,7 @@ class Ecommerce extends Model
 {
 
     protected $fillable = ['name', 'description', 'status_id'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function brand()
     {
