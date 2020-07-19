@@ -6,8 +6,8 @@ import UserManager from "../components/setting/user/UserManager";
 import DiscountManager from "../components/catalog/discount/DiscountManager";
 import EcommerceManager from "../components/setting/ecommerce/EcommerceManager";
 import ProductManager from "../components/catalog/product/ProductManager";
-import Login from "../components/template/Login";
-import Error404 from '../components/template/views/404';
+import Login from "../template/views/Login";
+import Error404 from '../template/views/404';
 
 export default [
     {

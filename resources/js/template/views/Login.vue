@@ -2,10 +2,10 @@
     <b-container :fluid="true">
         <b-row>
             <b-col cols="12" md="8"
-                   class="vh-100 bg-light text-center d-none d-md-flex align-items-center justify-content-center">
-                <img v-if="brand" alt="Brand" class="img-fluid w-25" :src="brand">
+                   class="vh-100 bg-dark text-center d-none d-md-flex align-items-center justify-content-center">
+                <img v-if="brand" alt="Brand" class="img-fluid brand w-25 bg-white p-2 rounded" :src="brand">
             </b-col>
-            <b-col cols="12" md="4" class="p-5 bg-dark text-white vh-100">
+            <b-col cols="12" md="4" class="p-5 bg-light  vh-100">
                 <h4><i class="fa fa-lock"/> Iniciar sessão</h4>
                 <form-group label="E-mail" :required="true">
                     <b-form-input type="email" v-model="email" name="email" placeholder="mail@gmail.com" autofocus/>
@@ -61,3 +61,17 @@
         }
     }
 </script>
+<style scoped>
+    .brand {
+        animation: start 600ms;
+    }
+
+    @keyframes start {
+        0% {
+            margin-top: 100px;
+        }
+        100% {
+            margin-top: 0;
+        }
+    }
+</style>

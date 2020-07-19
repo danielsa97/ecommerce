@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('teste', function () {
-    dd('aqui');
-})->middleware('auth:api');
+
+Route::group(['prefix' => 'public', 'as' => 'public.'], function () {
+    Route::group(['prefix' => 'ecommerce', 'as' => 'ecommerce.'], function () {
+        Route::get('/info', 'EcommerceController@getInfo')->name('info');
+    });
+
+    Route::get('image/{image}', 'ImageController@index')->name('image.index');
+});
 
 Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'as' => 'auth.'], function () {
     Route::post('login', 'AuthController@login')->name('login');
@@ -26,14 +31,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth', 'as' => 'auth.'], funct
     });
 });
 
-
-Route::group(['prefix' => 'public', 'as' => 'public.'], function () {
-    Route::group(['prefix' => 'ecommerce', 'as' => 'ecommerce.'], function () {
-        Route::get('/info', 'EcommerceController@getInfo')->name('info');
-    });
-
-    Route::get('image/{image}', 'ImageController@index')->name('image.index');
-});
 
 //AUTHENTICATED ROUTES
 Route::group(['middleware' => 'auth:api'], function () {
@@ -69,7 +66,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::get('{id}/edit', 'BrandController@edit')->name('edit');
             Route::put('{id}', 'BrandController@update')->name('update');
             Route::put('{id}/change-status', 'BrandController@changeStatus')->name('change-status');
-            Route::get('brand-search', 'BrandController@departmentSearch')->name('search');
+            Route::get('brand-search', 'BrandController@brandSearch')->name('search');
         });
 
         Route::group(['prefix' => 'discount', 'as' => 'discount.'], function () {

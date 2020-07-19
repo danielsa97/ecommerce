@@ -1,7 +1,5 @@
-import Container from "./template/Container";
-
 require('./bootstrap');
-require('./js-routes');
+require('./assets/js-routes');
 import Vue from 'vue';
 import VueIziToast from 'vue-izitoast';
 import vSelect from 'vue-select';
@@ -13,12 +11,12 @@ import VueSelectSides from "vue-select-sides";
 import VueFormWizard from 'vue-form-wizard';
 import VueRouter from 'vue-router';
 import MenuRouter from "./vue-router/MenuRouter";
-import App from "./components/template/App";
 import VueAxios from 'vue-axios';
 import VueAuth from '@websanova/vue-auth'
 import auth from "./auth";
 import Vuex from 'vuex';
 import store from "./vuex/store";
+import Main from "./template/Main";
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
@@ -55,7 +53,7 @@ Vue.component('input-image', require("./components/InputImage").default);
 
 new Vue({
     el: '#app',
-    render: app => app(App),
+    render: app => app(Main),
     store: new Vuex.Store(store),
     router
 });

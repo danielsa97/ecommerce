@@ -11,7 +11,9 @@ use App\Services\Catalog\Brand\BrandChangeStatusService;
 use App\Services\Catalog\Brand\BrandEditService;
 use App\Services\Catalog\Brand\BrandStoreService;
 use App\Services\Catalog\Brand\BrandUpdateService;
+use App\Services\Catalog\Department\BrandSearchService;
 use App\Services\DataTableService;
+use Illuminate\Http\Request;
 
 class BrandController extends Controller
 {
@@ -45,5 +47,10 @@ class BrandController extends Controller
     public function changeStatus(int $brandId)
     {
         return BrandChangeStatusService::change($brandId);
+    }
+
+    public function brandSearch(Request $request)
+    {
+        return BrandSearchService::search($request);
     }
 }

@@ -1,11 +1,9 @@
 <template>
     <aside class="main-sidebar vh-100 sidebar-dark-primary elevation-4">
-        <a href="/"
-           class="brand-link bg-white text-center">
-            <small class="brand-text  font-weight-light">
-                Loja
-            </small>
-        </a>
+        <router-link to="/dashboard" class="brand-link">
+            <img :src="brand" v-if="brand" alt="Logo" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light">{{getEcommerceInformation.name}}</span>
+        </router-link>
         <div class="sidebar">
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column"
@@ -21,6 +19,7 @@
 <script>
     import MenuRouter from "../vue-router/MenuRouter";
     import MenuItem from "./MenuItem";
+    import {mapGetters} from 'vuex';
 
     export default {
         name: "Sidebar",
@@ -29,6 +28,16 @@
             return {
                 routes: MenuRouter.toMenu()
             };
-        }
+        },
+        mounted() {
+
+        },
+        computed: {
+            ...mapGetters(['getEcommerceInformation']),
+            brand() {
+                let image = this.getEcommerceInformation?.favicon?.name;
+                return image ? route('public.image.index', {image}) : null;
+            }
+        },
     }
 </script>

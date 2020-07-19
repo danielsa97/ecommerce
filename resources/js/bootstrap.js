@@ -3,9 +3,12 @@ window.$ = window.jQuery = require('jquery');
 window.axios = require('axios');
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+require('jquery-ui-dist/jquery-ui');
+require('overlayscrollbars');
 require('bootstrap');
 require('datatables.net-buttons-bs');
 require('datatables.net-bs4');
+window.AdminLte = require('admin-lte');
 
 const DATATABLE_PT_BR = require('./assets/datatable-pt-br');
 const NProgress = require('nprogress');
@@ -50,12 +53,6 @@ axios.interceptors.response.use((response) => {
     axiosLoading.done();
     return Promise.reject(error);
 });
-
-require('overlayscrollbars');
-require('bootstrap');
-require('datatables.net-buttons-bs');
-require('datatables.net-bs4');
-require('admin-lte');
 
 
 $.extend(true, $.fn.dataTable.defaults, {

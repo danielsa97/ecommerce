@@ -1,6 +1,6 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
 @import '~@fortawesome/fontawesome-free/scss/brands';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/solid';
@@ -9,9 +9,11 @@
 @import 'variables';
 
 //Styles
+@import "~bootstrap";
 @import "~admin-lte/dist/css/adminlte.min.css";
+@import "~bootstrap-vue";
 @import "~vue-select-sides/styles/themes/soft.scss";
-//@import '~overlayscrollbars/css/OverlayScrollbars.min.css';
+@import '~overlayscrollbars/css/OverlayScrollbars.min.css';
 @import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
 @import "~izitoast/dist/css/iziToast.css";
 @import "~vue-select/dist/vue-select.css";

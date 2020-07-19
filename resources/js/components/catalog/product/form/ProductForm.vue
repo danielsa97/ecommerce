@@ -4,6 +4,7 @@
              @ok.prevent="save"
              @hidden="reset"
              ok-title="Salvar"
+             size="lg"
              ok-only>
         <form ref="product_form">
             <form-group label="Nome" :required="true">
@@ -12,33 +13,43 @@
             <form-group label="Descrição">
                 <b-form-textarea name="description" :value="content.description"/>
             </form-group>
-            <form-group label="Marca" name="brand_id" :required="true">
-                <b-row>
-                    <b-col cols="10">
-                        <v-select v-model="content.brand"
-                                  :options="options.brand"
-                                  @search="brandSearch"/>
-                    </b-col>
-                    <b-col cols="2">
-                        <b-button variant="primary" v-b-tooltip="'Novo'" size="sm" block v-b-modal.brand_modal>
-                            <i class="fa fa-plus"/>
-                        </b-button>
-                    </b-col>
-                </b-row>
-            </form-group>
-            <form-group label="Categoria" name="category_id" :required="true">
-                <b-row>
-                    <b-col cols="10">
-                        <v-select v-model="content.category"
-                                  :options="options.category"
-                                  @search="categorySearch"/>
-                    </b-col>
-                    <b-col cols="2">
-                        <b-button variant="primary" v-b-tooltip="'Novo'" size="sm" block v-b-modal.category_modal>
-                            <i class="fa fa-plus"/>
-                        </b-button>
-                    </b-col>
-                </b-row>
+            <b-row>
+                <b-col md="6">
+                    <form-group label="Marca" name="brand_id" :required="true">
+                        <b-row>
+                            <b-col cols="10">
+                                <v-select v-model="content.brand"
+                                          :options="options.brand"
+                                          @search="brandSearch"/>
+                            </b-col>
+                            <b-col cols="2">
+                                <b-button variant="primary" v-b-tooltip="'Novo'" size="sm" block v-b-modal.brand_modal>
+                                    <i class="fa fa-plus"/>
+                                </b-button>
+                            </b-col>
+                        </b-row>
+                    </form-group>
+                </b-col>
+                <b-col md="6">
+                    <form-group label="Categoria" name="category_id" :required="true">
+                        <b-row>
+                            <b-col cols="10">
+                                <v-select v-model="content.category"
+                                          :options="options.category"
+                                          @search="categorySearch"/>
+                            </b-col>
+                            <b-col cols="2">
+                                <b-button variant="primary" v-b-tooltip="'Novo'" size="sm" block
+                                          v-b-modal.category_modal>
+                                    <i class="fa fa-plus"/>
+                                </b-button>
+                            </b-col>
+                        </b-row>
+                    </form-group>
+                </b-col>
+            </b-row>
+            <form-group label="Imagens" name="images" :required="true" tooltip="Imagens serão exibidas na loja">
+                <input-image :multiple="true"/>
             </form-group>
         </form>
         <category-form/>

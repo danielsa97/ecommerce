@@ -1,22 +1,14 @@
 <template>
-    <div class="wrapper" v-if="allowDashboard">
-        <navbar/>
-        <sidebar/>
-        <page/>
-    </div>
+    <container v-if="allowDashboard"/>
     <router-view v-else/>
 </template>
-
 <script>
-    import Navbar from "./Navbar";
-    import Sidebar from "./Sidebar";
-    import Page from "./Page";
-    import Login from "./Login";
     import {mapGetters} from 'vuex';
+    import Container from "./Container";
 
     export default {
-        name: "App",
-        components: {Login, Page, Sidebar, Navbar},
+        name: "Main",
+        components: {Container},
         async mounted() {
             const {data} = await axios.get(route('public.ecommerce.info'));
             this.$store.commit('CHANGE_ECOMMERCE_INFORMATION', data);

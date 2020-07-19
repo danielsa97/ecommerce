@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrapper">
         <navbar/>
         <sidebar/>
         <page/>
@@ -13,6 +13,12 @@
 
     export default {
         name: "Container",
-        components: {Navbar, Sidebar, Page}
+        components: {Page, Sidebar, Navbar},
+        mounted() {
+            //BugFix to adminLte Treeview
+            $('[data-widget="treeview"]').each(() => {
+                AdminLte.Treeview._jQueryInterface.call($(this), 'init');
+            });
+        }
     }
 </script>
